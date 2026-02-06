@@ -1,8 +1,7 @@
 package model.entities;
 
-import java.util.Date;
-
 public class user {
+    private Integer id;
     private String first_name;
     private String last_name;
     private String email;
@@ -11,25 +10,33 @@ public class user {
     private String birth_date;
     private String register_date;
     private String last_login;
-    private String role;
+    private Integer role_id;
     private Boolean state;
 
-    public user() {
-        this.first_name = null;
-        this.last_name = null;
-        this.email = null;
-        this.password_hash = null;
-        this.phone = null;
-        this.birth_date = null;
-        this.register_date = null;
-        this.last_login = null;
-        this.role = null;
-        this.state = false;
+    public user(Integer id, String  first_name, String last_name, String email,  String password_hash, String phone, String birth_date, String register_date, String last_login, Integer role_id, Boolean state) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.password_hash = password_hash;
+        this.phone = phone;
+        this.birth_date = birth_date;
+        this.register_date = register_date;
+        this.last_login = last_login;
+        this.role_id = role_id;
+        this.state = state;
     }
 
-    // class methods
+    public user() {
+    }
+
+    // user methods
 
     // getters
+
+
+    public Integer getId() { return id; }
+
     public String getFirstName() {
         return first_name;
     }
@@ -38,8 +45,8 @@ public class user {
         return state;
     }
 
-    public String getRole() {
-        return role;
+    public Integer getRoleId() {
+        return role_id;
     }
 
     public String getLastLogin() {
@@ -71,6 +78,10 @@ public class user {
     }
 
     // setters
+
+
+    public void setId(int id) { this.id = id; }
+
     public void setFirstName(String first_name) {
         this.first_name = first_name;
     }
@@ -103,11 +114,27 @@ public class user {
         this.last_login = last_login;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleId(int role_id) {
+        this.role_id = role_id;
     }
 
     public void setState(Boolean state) {
         this.state = state;
+    }
+
+    // helpers
+
+    public String toString() {
+        return "User  { id="+ id +", " +
+                "first_name="+first_name+", " +
+                "last_name="+last_name+", " +
+                "email="+email+", " +
+                "password_hash="+password_hash+", " +
+                "phone="+phone+", " +
+                "birth_date="+birth_date+", " +
+                "register_date="+register_date+", " +
+                "last_login="+last_login+", " +
+                "role_id="+role_id+", " +
+                "state="+state+"}";
     }
 }

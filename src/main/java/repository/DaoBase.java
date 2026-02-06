@@ -12,7 +12,7 @@ for example you want the findByID method, you implement generic interface and cr
  */
 public interface DaoBase<T, ID>{
     List<T> findAll() throws SQLException;
-    void insert(T entity) throws SQLException;
-    void update(T entity) throws SQLException;
-    void delete(ID id) throws SQLException;
+    Boolean insert(T entity) throws SQLException;
+    Boolean update(T entity) throws SQLException;
+    Boolean delete(ID id) throws SQLException;
 }
