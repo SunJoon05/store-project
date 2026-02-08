@@ -1,0 +1,22 @@
+:root {
+    /* Tipografía */
+    --font-family-base: "Poppins", "Helvetica Neue", sans-serif;
+    --font-size-large: 1.6rem;
+    --font-size-medium: 1.4rem;
+    --font-size-normal: 1rem;
+    --font-size-small: .8rem;
+
+    /* Layout */
+    --spacing-normal: 1rem;
+    --spacing-narrowly: .5rem;
+
+    --padding-normal: 1rem;
+    --padding-narrowly: .5rem;
+    --container-max-width: 1000px;
+
+    /* Colores base */
+    --color-text-primary: #000;
+    --color-text-accent: #8d8d8d;
+    --color-border: #8d8d8d;
+    --color-bg-primary: #ffffff;
+}

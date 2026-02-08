@@ -1,0 +1,4 @@
+.content-spacing {
+    max-width: var(--container-max-width);
+    width: 100%;
+}
