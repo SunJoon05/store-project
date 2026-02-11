@@ -1,3 +1,5 @@
+/*flexbox*/
+
 .--flex-center {
     display: flex;
     justify-content: center;
@@ -10,26 +12,42 @@
     justify-content: space-between;
 }
 
-.--padding-block-05 {
+/*padding*/
+
+.--padding-block-large {
+    padding-block: var(--padding-large);
+}
+
+.--padding-block-narrowly {
     padding-block: var(--padding-narrowly);
 }
 
-.--padding-block-1 {
+.--padding-block-normal {
     padding-block: var(--padding-normal);
 }
 
-.--padding-inline-05 {
+.--padding-inline-large {
+    padding-block: var(--padding-large);
+}
+
+.--padding-inline-narrowly {
     padding-inline: var(--padding-narrowly);
 }
 
-.--padding-inline-1 {
+.--padding-inline-normal {
     padding-inline: 0 var(--padding-normal);
 }
 
-.--gap-05 {
-    gap: var(--spacing-narrowly);
+/*gap*/
+
+.--gap-spacing-large {
+    gap: var(--spacing-large);
 }
 
-.--gap-1 {
+.--gap-spacing-normal {
     gap: var(--spacing-normal);
+}
+
+.--gap-spacing-narrowly {
+    gap: var(--spacing-narrowly);
 }

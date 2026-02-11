@@ -7,11 +7,14 @@
     --font-size-small: .8rem;
 
     /* Layout */
+    --spacing-large: 2rem;
     --spacing-normal: 1rem;
     --spacing-narrowly: .5rem;
 
+    --padding-large: 2rem;
     --padding-normal: 1rem;
     --padding-narrowly: .5rem;
+
     --container-max-width: 1000px;
 
     /* Colores base */

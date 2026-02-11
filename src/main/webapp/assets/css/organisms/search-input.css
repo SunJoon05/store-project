@@ -7,6 +7,7 @@
     max-inline-size: 25rem;
     inline-size: 100%;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .--input {

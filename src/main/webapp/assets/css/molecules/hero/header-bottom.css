@@ -1,0 +1,14 @@
+.header-bottom {
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg-tertiary);
+}
+
+.header-bottom__link {
+    text-decoration: none;
+    color: var(--color-text-secondary);
+}
+
+.header-bottom__icon {
+    stroke: var(--color-text-secondary);
+}
