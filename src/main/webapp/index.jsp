@@ -11,7 +11,7 @@
 <%@page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css?v=2">
     <title>Store-Project</title>
 </head>
 <body>

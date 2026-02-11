@@ -1,0 +1,18 @@
+.--search-input {
+    align-items: stretch;
+    gap: var(--spacing-narrowly);
+    border: 1px solid var(--color-border);
+    border-radius: .5rem;
+    padding-inline-start: var(--padding-narrowly);
+    max-inline-size: 25rem;
+    inline-size: 100%;
+    box-sizing: border-box;
+}
+
+.--input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding-block: var(--padding-narrowly);
+    font-size: var(--font-size-small);
+}
