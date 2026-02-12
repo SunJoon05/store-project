@@ -5,7 +5,11 @@
 @import url("base/variables.css");
 @import url("atoms/content-spacing.css");
 @import url("organisms/search-input.css");
-@import url("molecules/hero/header-top.css");
-@import url("molecules/hero/header-main.css");
-@import url("molecules/hero/header-bottom.css");
+@import url("organisms/letters-input.css");
+@import url("molecules/header-top.css");
+@import url("molecules/header-main.css");
+@import url("molecules/header-bottom.css");
+@import url("molecules/footer-top.css");
+@import url("molecules/footer-main.css");
+@import url("molecules/footer-bottom.css");
 

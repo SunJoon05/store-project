@@ -6,11 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+<section class="footer-bottom --flex-center --padding-block-normal">
+    <div class="content-spacing">
+        <div class="--flex-center">
+            <footer class="footer-bottom__content">
+                <p>Copyright © Plantation 2026</p>
+            </footer>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,17 @@
+.footer-top {
+    background-color: var(--color-bg-quaternary);
+}
+
+.footer-top__logo {
+    color: var(--color-text-quaternary);
+}
+
+.footer-news__title {
+    font-weight: 500;
+}
+
+.footer-news__paragraph {
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-small);
+}
+
