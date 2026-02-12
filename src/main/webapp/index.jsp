@@ -16,5 +16,11 @@
 </head>
 <body>
 <%@ include file="includes/header.jsp" %>
+
+<%
+        user u = new user();
+        u.setBirthDate("2006-03-05");
+        System.out.println("Edad calculada: " + u.getAge());
+%>
 </body>
 </html>

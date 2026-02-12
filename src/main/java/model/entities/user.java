@@ -1,5 +1,8 @@
 package model.entities;
 
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 public class user {
     private Integer id;
     private String first_name;
@@ -13,7 +16,7 @@ public class user {
     private Integer role_id;
     private Boolean state;
 
-    public user(Integer id, String  first_name, String last_name, String email,  String password_hash, String phone, String birth_date, String register_date, String last_login, Integer role_id, Boolean state) {
+    public user(Integer id, String first_name, String last_name, String email, String password_hash, String phone, String birth_date, String register_date, String last_login, Integer role_id, Boolean state) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -31,11 +34,47 @@ public class user {
     }
 
     // user methods
+    public Integer getAge() {
+        final double miliseconds_in_year = 3.1536E+10;
+        Integer age = 0;
+
+        // capturar excepciones para evitar que el sistema se congele
+        try {
+            // formato de fechas
+            final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            // llevarlos a un formato en común
+            LocalDate today_date = LocalDate.now();
+            LocalDate birth_date = LocalDate.parse(this.birth_date, formatter); // formatear la fecha al formato solicitado
+
+            ZoneId zone_id = ZoneId.systemDefault(); // id de la zona sea UTC o local
+            // convertir a toInstant para obtener los milisegundos
+            Instant instant_today = today_date.atStartOfDay(zone_id).toInstant();
+            Instant instant_birth = birth_date.atStartOfDay(zone_id).toInstant();
+
+            long today_miliseconds = instant_today.toEpochMilli();
+            long birth_miliseconds = instant_birth.toEpochMilli();
+
+            // obtener la diferencia entre fechas
+            long age_in_miliseconds = today_miliseconds - birth_miliseconds;
+
+            // validar que la fecha de nacimiento no sea mayor que la fecha actual al dia de hoy
+            if (age_in_miliseconds < 0) throw new IllegalArgumentException("The birth date cannot be later than the current date");
+
+            age = to_years(age_in_miliseconds, miliseconds_in_year);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return age;
+    }
 
     // getters
 
-
-    public Integer getId() { return id; }
+    public Integer getId() {
+        return id;
+    }
 
     public String getFirstName() {
         return first_name;
@@ -80,7 +119,9 @@ public class user {
     // setters
 
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setFirstName(String first_name) {
         this.first_name = first_name;
@@ -123,6 +164,9 @@ public class user {
     }
 
     // helpers
+    public Integer to_years (long age, double year) {
+        return (int) Math.floor(age / year);
+    }
 
     public String toString() {
         return "User  { id="+ id +", " +
