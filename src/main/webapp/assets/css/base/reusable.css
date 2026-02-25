@@ -42,6 +42,18 @@
 
 /*padding*/
 
+.--padding-narrowly {
+    padding-left: var(--padding-narrowly);
+}
+
+.--padding-normal {
+    padding: var(--padding-normal);
+}
+
+.--padding-large {
+    padding: var(--padding-large);
+}
+
 .--padding-block-large {
     padding-block: var(--padding-large);
 }

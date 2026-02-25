@@ -1,4 +1,4 @@
-.--search-input {
+.--search-form {
     align-items: stretch;
     gap: var(--spacing-narrowly);
     border: 1px solid var(--color-border-primary);
@@ -10,7 +10,7 @@
     overflow: hidden;
 }
 
-.--input {
+.--search-input {
     flex: 1;
     border: none;
     outline: none;

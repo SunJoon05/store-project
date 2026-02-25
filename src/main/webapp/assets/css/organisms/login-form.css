@@ -1,0 +1,37 @@
+.login-section {
+    padding: 5rem 0;
+}
+
+.login-card__title {
+    font-weight: 600;
+    font-size: var(--font-size-large);
+}
+
+.login-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    max-inline-size: 24rem;
+    inline-size: 100%;
+}
+
+.login-form {
+    inline-size: 100%;
+}
+
+.login-form__field {
+    inline-size: 100%;
+}
+
+.login-card__footer {
+    font-size: var(--font-size-small);
+}
+
+.login-link {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.login-form__button {
+    font-size: var(--font-size-small);
+}
