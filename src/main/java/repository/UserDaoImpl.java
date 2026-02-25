@@ -56,8 +56,8 @@ public class UserDaoImpl implements UserDao{
             pstmt.setString(6, entity.getBirthDate());
             pstmt.setString(7, entity.getRegisterDate());
             pstmt.setString(8, entity.getLastLogin());
-            pstmt.setInt(9, entity.getRoleId());
-            pstmt.setBoolean(10, entity.getState());
+            pstmt.setInt(9, 3);
+            pstmt.setBoolean(10,true);
 
             if (pstmt.executeUpdate() > 0) {
                 is_success = true;

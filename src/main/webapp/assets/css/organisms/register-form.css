@@ -1,0 +1,37 @@
+.register-section {
+    padding: 5rem 0;
+}
+
+.register-card__title {
+    font-weight: 600;
+    font-size: var(--font-size-large);
+}
+
+.register-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    max-inline-size: 24rem;
+    inline-size: 100%;
+}
+
+.register-form {
+    inline-size: 100%;
+}
+
+.register-form__field {
+    inline-size: 100%;
+}
+
+.register-card__footer {
+    font-size: var(--font-size-small);
+}
+
+.register-link {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.register-form__button {
+    font-size: var(--font-size-small);
+}

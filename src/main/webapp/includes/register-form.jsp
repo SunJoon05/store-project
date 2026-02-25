@@ -7,30 +7,30 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
-<section class="login-section --flex-center">
-    <div class="login-card --flex-column-center --gap-large --padding-normal">
+<section class="register-section --flex-center">
+    <div class="register-card --flex-column-center --gap-large --padding-normal">
 
-        <h2 class="login-card__title">Create Account</h2>
+        <h2 class="register-card__title">Create Account</h2>
 
-        <form class="login-form --flex-column-center --gap-normal" action="">
-            <div class="login-form__field">
-                <input class="login-form__input --input" type="email" id="email" name="email" placeholder="Email Address">
+        <form class="register-form --flex-column-center --gap-normal" action="<%= request.getContextPath() %>/register" method="POST">
+            <div class="register-form__field">
+                <input class="register-form__input --input" type="email" id="email" name="email" placeholder="Email Address">
             </div>
 
-            <div class="login-form__field">
-                <input class="login-form__input --input" type="password" id="password" name="password" placeholder="Password">
+            <div class="register-form__field">
+                <input class="register-form__input --input" type="password" id="password" name="password" placeholder="Password">
             </div>
 
-            <div class="login-form__field">
-                <input class="login-form__input --input" type="password" id="password" name="password" placeholder="Confirm Password">
+            <div class="register-form__field">
+                <input class="register-form__input --input" type="password" id="password" name="password" placeholder="Confirm Password">
             </div>
 
-            <button class="login-form__button --rounded-button" type="submit">Create Account</button>
+            <button class="register-form__button --rounded-button" type="submit">Create Account</button>
         </form>
 
-        <p class="login-card__footer">
+        <p class="register-card__footer">
             Already have an account?
-            <a class="login-link link--accent" href="/register">Log In</a>
+            <a class="register-link link--accent" href="/register">Log In</a>
         </p>
 
     </div>
