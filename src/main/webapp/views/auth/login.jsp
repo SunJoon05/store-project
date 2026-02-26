@@ -12,8 +12,8 @@
     <title>Log In</title>
 </head>
 <body>
-<%@ include file="/includes/header.jsp" %>
-<%@ include file="/includes/login-form.jsp" %>
-<%@ include file="/includes/footer.jsp" %>
+<%@ include file="/includes/organisms/header.jsp" %>
+<%@ include file="/includes/molecules/login-form.jsp" %>
+<%@ include file="/includes/organisms/footer.jsp" %>
 </body>
 </html>

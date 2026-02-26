@@ -5,15 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.entities.user;
 import repository.UserDaoImpl;
+import service.AuthService;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+// lanzar la respuesta adecuada en el setAtributte
 
 @WebServlet("/register")
 public class registerController extends HttpServlet {
@@ -24,23 +22,26 @@ public class registerController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        UserDaoImpl DAO = new UserDaoImpl();
+        AuthService auth_service = new AuthService(DAO);
+
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String confirm_password = req.getParameter("confirm");
 
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String date = now.format(formatter);
+        boolean is_valid = auth_service.checkCredentials(email, password, confirm_password);
 
-        user u = new user();
-        UserDaoImpl dao  = new UserDaoImpl();
-
-        u.setEmail(email);
-        u.setPasswordHash(password);
-        u.setRegisterDate(date);
+        if (!is_valid) {
+            req.setAttribute("resp", "ERROR");
+            req.getRequestDispatcher("/views/auth/register.jsp").forward(req,resp);
+            return;
+        }
 
         try {
-            dao.insert(u);
-            resp.sendRedirect(req.getContextPath() + "/views/auth/login.jsp");
+            auth_service.registerCredentials(email, password);
+            req.setAttribute("resp", "SUCCESS");
+            req.getRequestDispatcher("/views/auth/register.jsp").forward(req,resp);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

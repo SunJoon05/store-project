@@ -43,7 +43,7 @@
 /*padding*/
 
 .--padding-narrowly {
-    padding-left: var(--padding-narrowly);
+    padding: var(--padding-narrowly);
 }
 
 .--padding-normal {
@@ -101,4 +101,8 @@
     padding-block-end: .2rem;
     color: var(--color-text-secondary);
     border-block-end: 2px solid var(--color-border-secondary);
+}
+
+.--hidden {
+    display: none;
 }

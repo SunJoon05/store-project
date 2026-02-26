@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@page import="repository.UserDaoImpl" %>
-<%@page import="model.entities.user" %>
+<%@page import="model.entities.User" %>
 <%@page import="java.util.List" %>
 <%@page contentType="text/html;charset=UTF-8"%>
 <html>
@@ -15,7 +15,7 @@
     <title>Store-Project</title>
 </head>
 <body>
-<%@ include file="includes/header.jsp" %>
-<%@ include file="includes/footer.jsp"%>
+<%@ include file="includes/organisms/header.jsp" %>
+<%@ include file="includes/organisms/footer.jsp"%>
 </body>
 </html>

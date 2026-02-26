@@ -1,0 +1,35 @@
+.modal-success__card {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 5px 0 rgba(197, 197, 197, 0.5);
+    border-radius: .6rem;
+    background-color: var(--color-bg-primary);
+}
+
+.modal-success__icon {
+    display: inline-block;
+    background-color: var(--color-bg-secondary);
+    border-radius: .5rem;
+}
+
+.modal-success__title {
+    font-size: var(--font-size-medium);
+    font-weight: 500;
+}
+
+.modal-success__message {
+    inline-size: 15rem;
+    text-align: center;
+}
+
+.modal-success__button {
+    border-radius: .6rem;
+    padding: .5rem 1rem;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    outline: none;
+    border: none;
+}

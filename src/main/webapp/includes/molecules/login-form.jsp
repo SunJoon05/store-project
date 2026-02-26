@@ -26,7 +26,7 @@
 
         <p class="login-card__footer">
             Don't have an account?
-            <a class="login-link link--accent" href="/register">Register</a>
+            <a class="login-link link--accent" href="<%= request.getContextPath() %>/register">Sign Up</a>
         </p>
 
     </div>
