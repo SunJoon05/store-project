@@ -30,6 +30,20 @@ public class User {
         this.state = state;
     }
 
+    public User(User other) {
+        this.id = other.id;
+        this.first_name = other.first_name;
+        this.last_name = other.last_name;
+        this.email = other.email;
+        this.password_hash = other.password_hash;
+        this.phone = other.phone;
+        this.birth_date = other.birth_date;
+        this.register_date = other.register_date;
+        this.last_login = other.last_login;
+        this.role_id = other.role_id;
+        this.state = other.state;
+    }
+
     public User() {
     }
 

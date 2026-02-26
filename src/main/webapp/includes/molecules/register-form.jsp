@@ -11,21 +11,17 @@
 
         <h2 class="register-card__title">Create Account</h2>
 
-        <form class="register-form --flex-column-center --gap-normal" action="<%= request.getContextPath() %>/register"
-              method="POST">
+        <form class="register-form --flex-column-center --gap-normal" action="<%= request.getContextPath() %>/register" method="POST">
             <div class="register-form__field">
-                <input class="register-form__input --input" type="email" id="email" name="email"
-                       placeholder="Email Address">
+                <input class="register-form__input --input" type="email" id="email" name="email" placeholder="Email Address">
             </div>
 
             <div class="register-form__field">
-                <input class="register-form__input --input" type="password" id="password" name="password"
-                       placeholder="Password">
+                <input class="register-form__input --input" type="password" id="password" name="password" minlength="8" placeholder="Password">
             </div>
 
             <div class="register-form__field">
-                <input class="register-form__input --input" type="password" id="confirm" name="confirm"
-                       placeholder="Confirm Password">
+                <input class="register-form__input --input" type="password" id="confirm" name="confirm" minlength="8" placeholder="Confirm Password">
             </div>
 
             <button class="register-form__button --rounded-button" type="submit">Create Account</button>
@@ -37,6 +33,6 @@
         </p>
 
     </div>
-    <%@ include file="modal-error.jsp"%>
+    <%@ include file="modal-error.jsp" %>
     <%@ include file="modal-success.jsp" %>
 </section>

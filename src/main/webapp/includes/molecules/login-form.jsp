@@ -12,7 +12,7 @@
 
         <h2 class="login-card__title">Sign In</h2>
 
-        <form class="login-form --flex-column-center --gap-normal" action="">
+        <form class="login-form --flex-column-center --gap-normal" action="<%= request.getContextPath() %>/login" method="POST">
             <div class="login-form__field">
                 <input class="login-form__input --input" type="email" id="email" name="email" placeholder="Email Address">
             </div>

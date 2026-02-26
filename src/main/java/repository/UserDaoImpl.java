@@ -72,7 +72,7 @@ public class UserDaoImpl implements UserDao{
     @Override
     public Boolean update(User entity) throws SQLException {
         User old_user = findBy("id", entity.getId()); // retornamos el dato para comparar, id es un dato inmutable
-
+        System.out.println(old_user);
         if (old_user == null) {
             return false;
         }
@@ -100,6 +100,38 @@ public class UserDaoImpl implements UserDao{
         scheme.forEach((rule) -> {
             rule.accept(old_user, entity);
         });
+
+        String query =
+                "UPDATE " + TABLE + " SET " +
+                        "first_name = ?, " +
+                        "last_name = ?, " +
+                        "email = ?, " +
+                        "password_hash = ?, " +
+                        "phone = ?, " +
+                        "birth_date = ?, " +
+                        "register_date = ?, " +
+                        "last_login = ?, " +
+                        "role_id = ?, " +
+                        "state = ? " +
+                        "WHERE id = ?";
+
+        try (Connection conn = getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setObject(1, entity.getFirstName(), Types.VARCHAR);
+            pstmt.setObject(2, entity.getLastName(), Types.VARCHAR);
+            pstmt.setObject(3, entity.getEmail(), Types.VARCHAR);
+            pstmt.setObject(4, entity.getPasswordHash(), Types.VARCHAR);
+            pstmt.setObject(5, entity.getPhone(), Types.VARCHAR);
+            pstmt.setObject(6, entity.getBirthDate(), Types.VARCHAR);
+            pstmt.setObject(7, entity.getRegisterDate(), Types.VARCHAR);
+            pstmt.setObject(8, entity.getLastLogin(), Types.VARCHAR);
+            pstmt.setInt(9, 3);
+            pstmt.setBoolean(10, true);
+            pstmt.setInt(11, entity.getId());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return true;
     }

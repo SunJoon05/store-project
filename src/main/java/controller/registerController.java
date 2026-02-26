@@ -24,13 +24,13 @@ public class registerController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         UserDaoImpl DAO = new UserDaoImpl();
-        AuthService auth_service = new AuthService(DAO);
+        AuthService auth = new AuthService(DAO);
 
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String confirm_password = req.getParameter("confirm");
 
-        boolean is_valid = auth_service.checkCredentials(email, password, confirm_password);
+        boolean is_valid = auth.validateRegistrationInput(email, password, confirm_password);
 
         if (!is_valid) {
             req.setAttribute("resp", "ERROR");
@@ -39,7 +39,7 @@ public class registerController extends HttpServlet {
         }
 
         try {
-            auth_service.registerCredentials(email, password);
+            auth.registerUser(email, password);
             req.setAttribute("resp", "SUCCESS");
             req.getRequestDispatcher("/views/auth/register.jsp").forward(req,resp);
         } catch (SQLException e) {
