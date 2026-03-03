@@ -1,0 +1,9 @@
+.--input {
+    outline: none;
+    border-radius: .6rem;
+    font-size: var(--font-size-small);
+    font-weight: normal;
+    padding: .5rem 1rem;
+    inline-size: 100%;
+    border: 1px solid var(--color-border-primary);
+}

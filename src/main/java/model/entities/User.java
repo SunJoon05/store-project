@@ -3,7 +3,7 @@ package model.entities;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-public class user {
+public class User {
     private Integer id;
     private String first_name;
     private String last_name;
@@ -16,7 +16,7 @@ public class user {
     private Integer role_id;
     private Boolean state;
 
-    public user(Integer id, String first_name, String last_name, String email, String password_hash, String phone, String birth_date, String register_date, String last_login, Integer role_id, Boolean state) {
+    public User(Integer id, String first_name, String last_name, String email, String password_hash, String phone, String birth_date, String register_date, String last_login, Integer role_id, Boolean state) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -30,7 +30,21 @@ public class user {
         this.state = state;
     }
 
-    public user() {
+    public User(User other) {
+        this.id = other.id;
+        this.first_name = other.first_name;
+        this.last_name = other.last_name;
+        this.email = other.email;
+        this.password_hash = other.password_hash;
+        this.phone = other.phone;
+        this.birth_date = other.birth_date;
+        this.register_date = other.register_date;
+        this.last_login = other.last_login;
+        this.role_id = other.role_id;
+        this.state = other.state;
+    }
+
+    public User() {
     }
 
     // user methods

@@ -1,0 +1,23 @@
+.--newsletter-form {
+    align-items: stretch;
+    background-color: var(--color-bg-primary);
+    border-radius: 5rem;
+    border: 1px solid var(--color-border-primary);
+    font-size: var(--font-size-small);
+    overflow: hidden;
+}
+
+.--newsletter-input {
+    inline-size: 100%;
+    border: none;
+    outline: none;
+}
+
+.--newsletter-button {
+    background-color: var(--color-bg-secondary);
+    border-radius: 5rem;
+    border: none;
+    outline: none;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}

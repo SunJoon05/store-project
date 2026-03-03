@@ -10,14 +10,14 @@
 <section class="header-bottom --flex-center --padding-block-normal">
     <div class="content-spacing">
         <div class="header-bottom__content --flex-space-between">
-            <nav class="header-bottom__navigation --flex-center --gap-spacing-normal">
+            <nav class="header-bottom__navigation --flex-center --gap-normal">
                 <a class="header-bottom__link" href="https://">
                     <span class="header-bottom__text">
                         Home
                     </span>
                 </a>
 
-                <a class="header-bottom__link --flex-center --gap-spacing-narrowly" href="https://">
+                <a class="header-bottom__link --flex-center --gap-narrowly" href="https://">
                     <span class="header-bottom__text">
                         Categories
                     </span>
@@ -41,7 +41,7 @@
                     </span>
                 </a>
             </nav>
-            <div class="header-main__phone --flex-center --gap-spacing-narrowly">
+            <div class="header-main__phone --flex-center --gap-narrowly">
                 <span class="header-bottom__icon">
                     <svg class="header-bottom__icon" id="Call" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          xmlns="http://www.w3.org/2000/svg">

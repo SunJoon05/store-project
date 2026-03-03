@@ -1,0 +1,10 @@
+.--rounded-button {
+    background-color: var(--color-bg-secondary);
+    border-radius: 5rem;
+    border: none;
+    outline: none;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    padding: .4rem 1rem;
+    inline-size: 100%;
+}

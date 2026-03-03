@@ -1,9 +1,9 @@
 package repository;
 
-import model.entities.user;
+import model.entities.User;
 
 import java.sql.SQLException;
 
-public interface UserDao extends DaoBase<user, Integer>{
-    public <T> user findBy(String column_label, T any) throws SQLException;
+public interface UserDao extends DaoBase<User, Integer>{
+    public <T> User findBy(String column_label, T any) throws SQLException;
 }

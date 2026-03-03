@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import model.entities.user;
+import model.entities.User;
 import static config.database.DataSource.getConnection;
 
 
@@ -14,16 +14,16 @@ public class UserDaoImpl implements UserDao{
     private static final String TABLE = "users";
 
     @Override
-    public List<user> findAll() throws SQLException {
+    public List<User> findAll() throws SQLException {
         String query = "SELECT * FROM " + TABLE;
-        List<user> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                user current_user = createUser(rs);
+                User current_user = createUser(rs);
                 users.add(current_user);
             }
 
@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao{
 
 
     @Override
-    public Boolean insert(user entity) throws SQLException {
+    public Boolean insert(User entity) throws SQLException {
 
         if (findBy("email", entity.getEmail()) != null) {
             return false;
@@ -56,8 +56,8 @@ public class UserDaoImpl implements UserDao{
             pstmt.setString(6, entity.getBirthDate());
             pstmt.setString(7, entity.getRegisterDate());
             pstmt.setString(8, entity.getLastLogin());
-            pstmt.setInt(9, entity.getRoleId());
-            pstmt.setBoolean(10, entity.getState());
+            pstmt.setInt(9, 3);
+            pstmt.setBoolean(10,true);
 
             if (pstmt.executeUpdate() > 0) {
                 is_success = true;
@@ -70,9 +70,9 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public Boolean update(user entity) throws SQLException {
-        user old_user = findBy("id", entity.getId()); // retornamos el dato para comparar, id es un dato inmutable
-
+    public Boolean update(User entity) throws SQLException {
+        User old_user = findBy("id", entity.getId()); // retornamos el dato para comparar, id es un dato inmutable
+        System.out.println(old_user);
         if (old_user == null) {
             return false;
         }
@@ -80,7 +80,7 @@ public class UserDaoImpl implements UserDao{
         // asignación de reglas dinamicas
         Class<?> props = old_user.getClass(); // Clase
         Field[] fields = props.getDeclaredFields(); // Propiedades
-        List<BiConsumer<user, user>> scheme = new ArrayList<>(); // Reglas definidas
+        List<BiConsumer<User, User>> scheme = new ArrayList<>(); // Reglas definidas
 
         for (Field field : fields) { // Crear reglas por cada prop
             final Field f  = field;
@@ -101,6 +101,38 @@ public class UserDaoImpl implements UserDao{
             rule.accept(old_user, entity);
         });
 
+        String query =
+                "UPDATE " + TABLE + " SET " +
+                        "first_name = ?, " +
+                        "last_name = ?, " +
+                        "email = ?, " +
+                        "password_hash = ?, " +
+                        "phone = ?, " +
+                        "birth_date = ?, " +
+                        "register_date = ?, " +
+                        "last_login = ?, " +
+                        "role_id = ?, " +
+                        "state = ? " +
+                        "WHERE id = ?";
+
+        try (Connection conn = getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setObject(1, entity.getFirstName(), Types.VARCHAR);
+            pstmt.setObject(2, entity.getLastName(), Types.VARCHAR);
+            pstmt.setObject(3, entity.getEmail(), Types.VARCHAR);
+            pstmt.setObject(4, entity.getPasswordHash(), Types.VARCHAR);
+            pstmt.setObject(5, entity.getPhone(), Types.VARCHAR);
+            pstmt.setObject(6, entity.getBirthDate(), Types.VARCHAR);
+            pstmt.setObject(7, entity.getRegisterDate(), Types.VARCHAR);
+            pstmt.setObject(8, entity.getLastLogin(), Types.VARCHAR);
+            pstmt.setInt(9, 3);
+            pstmt.setBoolean(10, true);
+            pstmt.setInt(11, entity.getId());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 
@@ -110,8 +142,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public <T> user findBy(String column_label, T any) throws SQLException {
-        user found_user = null;
+    public <T> User findBy(String column_label, T any) throws SQLException {
+        User found_user = null;
         String query = "SELECT * FROM " + TABLE + " WHERE " + column_label + " = ?";
 
         try(Connection conn = getConnection();
@@ -129,7 +161,7 @@ public class UserDaoImpl implements UserDao{
         return found_user;
     }
 
-    private user createUser(ResultSet current_row) throws SQLException {
+    private User createUser(ResultSet current_row) throws SQLException {
         // Crear variables locales para almacenar los datos de todas las tablas por cada fila creamos un nuevo usuario
 
         int id = current_row.getInt("id");
@@ -144,6 +176,6 @@ public class UserDaoImpl implements UserDao{
         int role  = current_row.getInt("role_id");
         Boolean state = current_row.getBoolean("state");
 
-        return new user(id, first_name, last_name, email, password_hash, phone, birth_date, register_date, last_login, role, state);
+        return new User(id, first_name, last_name, email, password_hash, phone, birth_date, register_date, last_login, role, state);
     }
 }

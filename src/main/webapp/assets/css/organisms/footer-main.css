@@ -1,0 +1,22 @@
+.footer-main {
+    background-color: var(--color-bg-tertiary);
+}
+
+.footer-main__title {
+    font-weight: 400;
+    color: var(--color-bg-primary);
+    text-wrap: nowrap;
+}
+
+.footer-main__content {
+    align-items: flex-start;
+}
+
+.footer-main__text {
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-small);
+
+    &.__paragraph {
+        max-inline-size: 250px;
+    }
+}

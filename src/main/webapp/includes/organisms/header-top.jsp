@@ -32,9 +32,9 @@
                 </address>
             </div>
             <div class="authentication-store">
-                <a class="authentication-store__anchor" href="https://">Sign In</a>
+                <a class="authentication-store__anchor" href="<%= request.getContextPath() %>/login">Sign In</a>
                 <span>/</span>
-                <a class="authentication-store__anchor" href="https://">Sign Up</a>
+                <a class="authentication-store__anchor" href="<%= request.getContextPath() %>/register">Sign Up</a>
             </div>
         </div>
     </div>
