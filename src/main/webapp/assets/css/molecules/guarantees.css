@@ -1,0 +1,19 @@
+.guarantees-section {
+    border-radius: .5rem;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    grid-column: span 2;
+}
+
+.guarantee-icon {
+    fill: var(--color-bg-secondary);
+    color: var(--color-bg-secondary);
+}
+
+.guarantee-title {
+    font-weight: 500;
+}
+
+.guarantee-description {
+    font-size: var(--font-size-small);
+    color: var(--color-text-tertiary);
+}

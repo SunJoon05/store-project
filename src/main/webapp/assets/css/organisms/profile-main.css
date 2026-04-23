@@ -1,0 +1,25 @@
+.user__profile-section {
+    inline-size: 100%;
+}
+
+.profile__user-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile__user-information {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-block-start: var(--spacing-large);
+    padding-block-end: var(--spacing-extra-large);
+}
+
+.--hidden {
+    display: none;
+}
+
+.--visible {
+    display: auto;
+}

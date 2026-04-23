@@ -44,5 +44,5 @@
         <p class="homePage-article3-text2">Special Products Deal of the Month</p>
         <button class="homePage-article3-button">Shop Now →</button>
     </article>
-
+    <%@ include file="../molecules/guarantees.jsp"%>
 </main>

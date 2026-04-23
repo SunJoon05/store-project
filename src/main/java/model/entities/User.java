@@ -4,7 +4,10 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class User {
+    public final String DEFAULT_AVATAR = "default-avatar-profile.png";
+
     private Integer id;
+    private String profile_picture;
     private String first_name;
     private String last_name;
     private String email;
@@ -13,11 +16,12 @@ public class User {
     private String birth_date;
     private String register_date;
     private String last_login;
-    private Integer role_id;
+    private Role role;
     private Boolean state;
 
-    public User(Integer id, String first_name, String last_name, String email, String password_hash, String phone, String birth_date, String register_date, String last_login, Integer role_id, Boolean state) {
+    public User(Integer id,String profile_picture, String first_name, String last_name, String email, String password_hash, String phone, String birth_date, String register_date, String last_login, int role, Boolean state) {
         this.id = id;
+        this.profile_picture = profile_picture == null || profile_picture.isEmpty() ? DEFAULT_AVATAR : profile_picture;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -26,12 +30,13 @@ public class User {
         this.birth_date = birth_date;
         this.register_date = register_date;
         this.last_login = last_login;
-        this.role_id = role_id;
+        this.role = Role.fromId(role);
         this.state = state;
     }
 
     public User(User other) {
         this.id = other.id;
+        this.profile_picture = other.profile_picture;
         this.first_name = other.first_name;
         this.last_name = other.last_name;
         this.email = other.email;
@@ -40,17 +45,76 @@ public class User {
         this.birth_date = other.birth_date;
         this.register_date = other.register_date;
         this.last_login = other.last_login;
-        this.role_id = other.role_id;
+        this.role = other.role;
         this.state = other.state;
     }
 
     public User() {
     }
 
-    // user methods
+    // getters
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getProfilePicture() { return this.profile_picture; }
+
+    public String getFirstName() {
+        return this.first_name;
+    }
+
+    public Boolean getState() {
+        return this.state;
+    }
+
+    public Role getRole() {
+        return this.role;
+    }
+
+    public String getLastLogin() {
+        return this.last_login;
+    }
+
+    public String getBirthDate() {
+        return this.birth_date;
+    }
+
+    public String getRegisterDate() {
+        return this.register_date;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public String getPasswordHash() {
+        return this.password_hash;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getLastName() {
+        return this.last_name;
+    }
+
+    public String getFullName() {
+        if (!hasValue(this.first_name) || !hasValue(this.last_name)) return null;
+
+        return  this.first_name + " " + this.last_name;
+    }
+
+    public boolean hasValue(String value) {
+        return (value != null && !value.isEmpty());
+    }
+
     public Integer getAge() {
         final double miliseconds_in_year = 3.1536E+10;
-        Integer age = 0;
+        Integer age = null;
+
+        if (this.birth_date == null) return null;
 
         // capturar excepciones para evitar que el sistema se congele
         try {
@@ -72,7 +136,7 @@ public class User {
             // obtener la diferencia entre fechas
             long age_in_miliseconds = today_miliseconds - birth_miliseconds;
 
-            // validar que la fecha de nacimiento no sea mayor que la fecha actual al dia de hoy
+            // validar que la fecha de nacimiento no sea mayor que la fecha actual
             if (age_in_miliseconds < 0) throw new IllegalArgumentException("The birth date cannot be later than the current date");
 
             age = to_years(age_in_miliseconds, miliseconds_in_year);
@@ -84,69 +148,26 @@ public class User {
         return age;
     }
 
-    // getters
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return first_name;
-    }
-
-    public Boolean getState() {
-        return state;
-    }
-
-    public Integer getRoleId() {
-        return role_id;
-    }
-
-    public String getLastLogin() {
-        return last_login;
-    }
-
-    public String getBirthDate() {
-        return birth_date;
-    }
-
-    public String getRegisterDate() {
-        return register_date;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getPasswordHash() {
-        return password_hash;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getLastName() {
-        return last_name;
-    }
-
     // setters
-
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public void setProfilePicture(String profile_picture) {
+        this.profile_picture = profile_picture == null || profile_picture.isEmpty() ? DEFAULT_AVATAR : profile_picture;
+    }
+
     public void setFirstName(String first_name) {
-        this.first_name = first_name;
+        this.first_name = (first_name == null || first_name.isBlank()) ? null : first_name.trim();
     }
 
     public void setLastName(String last_name) {
-        this.last_name = last_name;
+        this.last_name = (last_name == null || last_name.isBlank()) ? null : last_name.trim();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = (email == null || email.isBlank()) ? null : email.trim();
     }
 
     public void setPasswordHash(String password_hash) {
@@ -154,23 +175,23 @@ public class User {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = (phone == null || phone.isBlank()) ? null : phone.trim();
     }
 
     public void setBirthDate(String birth_date) {
-        this.birth_date = birth_date;
+        this.birth_date = (birth_date == null || birth_date.isBlank()) ? null : birth_date.trim();
     }
 
     public void setRegisterDate(String register_date) {
-        this.register_date = register_date;
+        this.register_date = register_date.trim();
     }
 
     public void setLastLogin(String last_login) {
-        this.last_login = last_login;
+        this.last_login = (last_login == null || last_login.isBlank()) ? null : last_login.trim();
     }
 
-    public void setRoleId(int role_id) {
-        this.role_id = role_id;
+    public void setRole(int role) {
+        this.role = Role.fromId(role);
     }
 
     public void setState(Boolean state) {
@@ -183,16 +204,17 @@ public class User {
     }
 
     public String toString() {
-        return "User  { id="+ id +", " +
-                "first_name="+first_name+", " +
-                "last_name="+last_name+", " +
-                "email="+email+", " +
-                "password_hash="+password_hash+", " +
-                "phone="+phone+", " +
-                "birth_date="+birth_date+", " +
-                "register_date="+register_date+", " +
-                "last_login="+last_login+", " +
-                "role_id="+role_id+", " +
-                "state="+state+"}";
+        return "User  { id="+ this.id +", " +
+                "profile_picture="+ this.profile_picture + ", " +
+                "first_name="+ this.first_name+", " +
+                "last_name="+ this.last_name+", " +
+                "email="+ this.email+ ", " +
+                "password_hash="+ this.password_hash+", " +
+                "phone="+ this.phone +", " +
+                "birth_date="+ this.birth_date +", " +
+                "register_date="+ this.register_date +", " +
+                "last_login="+ this.last_login +", " +
+                "role_id="+ this.role +", " +
+                "state="+ this.state +"}";
     }
 }

@@ -1,0 +1,120 @@
+.account-settings__form-wrapper {
+    box-shadow: 0 0 5px 0 rgba(117, 117, 117, 0.2);
+    border-radius: .5rem;
+    background-color: var(--color-bg-primary);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    inline-size: 100%;
+}
+
+.account-settings__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    inline-size: 100%;
+    gap: var(--spacing-normal);
+}
+
+.account-settings__form-information{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--spacing-large);
+    inline-size: 100%;
+}
+
+.account-settings__title {
+    font-weight: 500;
+    border-block-end: 1px solid var(--color-border-tertiary);
+    inline-size: 100%;
+    text-align: left;
+    padding: var(--padding-normal);
+}
+
+.account-settings__label {
+    font-size: var(--font-size-small);
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+}
+
+.account-settings__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--spacing-normal);
+    inline-size: 100%;
+    padding: var(--padding-normal);
+}
+
+.account-settings__field {
+    display: flex;
+    flex-direction: column;
+    inline-size: 100%;
+}
+
+.account-settings__input {
+    border-radius: .5rem;
+    border: 1px solid var(--color-border-tertiary);
+    padding: var(--padding-narrowly);
+    font-size: var(--font-size-small);
+    inline-size: 100%;
+    box-sizing: border-box;
+}
+
+.account-settings__submit {
+    font-size: var(--font-size-small);
+    display: inline-block;
+    inline-size: auto;
+}
+
+.account-settings__form-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--spacing-normal);
+}
+
+.account-settings__avatar-preview {
+    inline-size: 200px;
+    block-size: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.account-settings__avatar-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    inline-size: 100%;
+    block-size: 100%;
+}
+
+.account-settings__avatar-label {
+    font-size: var(--font-size-small);
+    color: var(--color-text-quaternary);
+    border: 1px solid var(--color-border-secondary);
+    cursor: pointer;
+    padding: .5rem 1rem;
+    border-radius: 5rem;
+    font-weight: 500;
+}
+
+.account-settings__avatar-input {
+    display: none;
+}
+
+
+.account-settings__input::placeholder {
+    color: var(--color-text-tertiary);
+}
+
+.account-settings__input:focus {
+    outline: none;
+}
+

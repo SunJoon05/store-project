@@ -6,8 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-
-<section class="login-section --flex-center">
+<section class="login-section --flex-center" data-response="<%= request.getAttribute("resp")%>">
     <div class="login-card --flex-column-center --gap-large --padding-normal">
 
         <h2 class="login-card__title">Sign In</h2>
@@ -28,6 +27,6 @@
             Don't have an account?
             <a class="login-link link--accent" href="<%= request.getContextPath() %>/register">Sign Up</a>
         </p>
-
     </div>
+    <%@ include file="modal-error.jsp" %>
 </section>

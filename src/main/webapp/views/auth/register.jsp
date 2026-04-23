@@ -10,11 +10,11 @@
 <head>
     <script type="module" src="assets/js/show-modal.js"></script>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/main.css">
-    <title>Sign Up</title>
+    <title>Plantation</title>
 </head>
 <body>
-<%@ include file="/includes/organisms/header.jsp" %>
-<%@ include file="/includes/molecules/register-form.jsp"%>
-<%@ include file ="/includes/organisms/footer.jsp" %>
+<%@ include file="/includes/components/header.jsp" %>
+<%@ include file="/includes/molecules/register-form.jsp" %>
+<%@ include file="/includes/components/footer.jsp" %>
 </body>
 </html>

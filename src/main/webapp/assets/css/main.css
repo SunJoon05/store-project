@@ -11,6 +11,7 @@
 @import url("molecules/login-form.css");
 @import url("molecules/register-form.css");
 @import url("molecules/modal-error.css");
+@import url("molecules/guarantees.css");
 @import url("molecules/modal-success.css");
 @import url("organisms/header-top.css");
 @import url("organisms/header-main.css");
@@ -18,3 +19,8 @@
 @import url("organisms/footer-top.css");
 @import url("organisms/footer-main.css");
 @import url("organisms/footer-bottom.css");
+@import url("home-page.css");
+@import url("molecules/navigation-profile.css");
+@import url("molecules/account-information.css");
+@import url("organisms/profile-main.css");
+@import url("molecules/account-settings.css");

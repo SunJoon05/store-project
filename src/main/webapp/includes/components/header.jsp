@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <header>
-    <%@ include file="header-top.jsp" %>
-    <%@ include file="header-main.jsp" %>
-    <%@ include file="header-bottom.jsp" %>
+    <%@ include file="../organisms/header-top.jsp" %>
+    <%@ include file="../organisms/header-main.jsp" %>
+    <%@ include file="../organisms/header-bottom.jsp" %>
 </header>

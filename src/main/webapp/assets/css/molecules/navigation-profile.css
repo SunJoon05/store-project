@@ -1,0 +1,49 @@
+.navigation-profile__section {
+    background-color: var(--color-bg-primary);
+    box-shadow: 0 0 5px 0 rgba(117, 117, 117, 0.2);
+    border-radius: .5rem;
+    max-inline-size: 200px;
+    inline-size: 100%;
+    overflow: hidden;
+    padding-block-end: var(--spacing-narrowly);
+}
+
+.navigation-profile__option,
+.navigation-profile__title{
+    padding: .5rem 1rem;
+    inline-size: 100%;
+}
+
+.navigation-profile__title {
+    padding-block-start: var(--padding-normal);
+}
+
+.navigation-profile__title {
+    font-weight: 500;
+}
+
+.navigation-profile__nav {
+    inline-size: 100%;
+}
+
+.navigation-profile__option {
+    color: var(--color-text-tertiary);
+    justify-content: flex-start;
+    font-size: var(--font-size-small);
+    transition: all .2s ease-in-out;
+    box-sizing: border-box;
+    border-inline-start: 2px solid transparent;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navigation-profile__description,
+.navigation-profile__icon {
+    color: inherit;
+}
+
+.navigation-profile__option:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-light);
+    border-inline-start: 2px solid var(--color-border-secondary);
+}

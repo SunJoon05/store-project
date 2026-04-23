@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import model.entities.Role;
 import model.entities.User;
 import static config.database.DataSource.getConnection;
-
 
 public class UserDaoImpl implements UserDao{
     private static final String TABLE = "users";
@@ -56,7 +56,7 @@ public class UserDaoImpl implements UserDao{
             pstmt.setString(6, entity.getBirthDate());
             pstmt.setString(7, entity.getRegisterDate());
             pstmt.setString(8, entity.getLastLogin());
-            pstmt.setInt(9, 3);
+            pstmt.setInt(9, Role.CLIENT.getId());
             pstmt.setBoolean(10,true);
 
             if (pstmt.executeUpdate() > 0) {
@@ -71,38 +71,15 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public Boolean update(User entity) throws SQLException {
-        User old_user = findBy("id", entity.getId()); // retornamos el dato para comparar, id es un dato inmutable
-        System.out.println(old_user);
+        User old_user = findBy("id", entity.getId());
+
         if (old_user == null) {
             return false;
         }
 
-        // asignación de reglas dinamicas
-        Class<?> props = old_user.getClass(); // Clase
-        Field[] fields = props.getDeclaredFields(); // Propiedades
-        List<BiConsumer<User, User>> scheme = new ArrayList<>(); // Reglas definidas
-
-        for (Field field : fields) { // Crear reglas por cada prop
-            final Field f  = field;
-            field.setAccessible(true);
-            scheme.add((old, current) -> {
-                try {
-                    if (f.get(current) == null) {
-                        f.set(current, f.get(old));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        // ejecutar las reglas
-        scheme.forEach((rule) -> {
-            rule.accept(old_user, entity);
-        });
-
         String query =
                 "UPDATE " + TABLE + " SET " +
+                        "profile_picture = ?, " +
                         "first_name = ?, " +
                         "last_name = ?, " +
                         "email = ?, " +
@@ -117,20 +94,22 @@ public class UserDaoImpl implements UserDao{
 
         try (Connection conn = getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setObject(1, entity.getFirstName(), Types.VARCHAR);
-            pstmt.setObject(2, entity.getLastName(), Types.VARCHAR);
-            pstmt.setObject(3, entity.getEmail(), Types.VARCHAR);
-            pstmt.setObject(4, entity.getPasswordHash(), Types.VARCHAR);
-            pstmt.setObject(5, entity.getPhone(), Types.VARCHAR);
-            pstmt.setObject(6, entity.getBirthDate(), Types.VARCHAR);
-            pstmt.setObject(7, entity.getRegisterDate(), Types.VARCHAR);
-            pstmt.setObject(8, entity.getLastLogin(), Types.VARCHAR);
-            pstmt.setInt(9, 3);
-            pstmt.setBoolean(10, true);
-            pstmt.setInt(11, entity.getId());
+            pstmt.setString(1, entity.getProfilePicture());
+            pstmt.setObject(2, entity.getFirstName(), Types.VARCHAR);
+            pstmt.setObject(3, entity.getLastName(), Types.VARCHAR);
+            pstmt.setObject(4, entity.getEmail(), Types.VARCHAR);
+            pstmt.setObject(5, entity.getPasswordHash(), Types.VARCHAR);
+            pstmt.setObject(6, entity.getPhone(), Types.VARCHAR);
+            pstmt.setObject(7, entity.getBirthDate(), Types.VARCHAR);
+            pstmt.setObject(8, entity.getRegisterDate(), Types.VARCHAR);
+            pstmt.setObject(9, entity.getLastLogin(), Types.VARCHAR);
+            pstmt.setInt(10, Role.CLIENT.getId());
+            pstmt.setBoolean(11, true);
+            pstmt.setInt(12, entity.getId());
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
 
         return true;
@@ -162,9 +141,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     private User createUser(ResultSet current_row) throws SQLException {
-        // Crear variables locales para almacenar los datos de todas las tablas por cada fila creamos un nuevo usuario
-
         int id = current_row.getInt("id");
+        String profile_picture = current_row.getString("profile_picture");
         String first_name = current_row.getString("first_name");
         String last_name = current_row.getString("last_name");
         String email = current_row.getString("email");
@@ -176,6 +154,6 @@ public class UserDaoImpl implements UserDao{
         int role  = current_row.getInt("role_id");
         Boolean state = current_row.getBoolean("state");
 
-        return new User(id, first_name, last_name, email, password_hash, phone, birth_date, register_date, last_login, role, state);
+        return new User(id, profile_picture, first_name, last_name, email, password_hash, phone, birth_date, register_date, last_login, role, state);
     }
 }

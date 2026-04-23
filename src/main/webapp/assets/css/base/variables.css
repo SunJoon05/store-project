@@ -8,6 +8,7 @@
 
     /* Layout */
     --spacing-large: 2rem;
+    --spacing-extra-large: 6rem;
     --spacing-normal: 1rem;
     --spacing-narrowly: .5rem;
 
@@ -22,13 +23,16 @@
     --color-text-secondary: #fff;
     --color-text-tertiary: #8d8d8d;
     --color-text-quaternary: #00BA1E;
+    --color-text-inverse: rgb(193, 193, 193);
 
 
     --color-bg-primary: #ffffff;
     --color-bg-secondary: #00BA1E;
     --color-bg-tertiary: #191919;
     --color-bg-quaternary: #f2f2f2;
+    --color-bg-light: #00D6240A;
 
     --color-border-primary: #8d8d8d;
+    --color-border-tertiary: #d3d3d3;
     --color-border-secondary: #00BA1E;
 }

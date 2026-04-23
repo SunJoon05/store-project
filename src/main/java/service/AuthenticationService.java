@@ -1,6 +1,5 @@
 package service;
 
-
 import model.entities.User;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.UserDaoImpl;
@@ -8,25 +7,21 @@ import repository.UserDaoImpl;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // este servicio se encarga de la autenticacion y seguridad
 // la registrar un nuevo usuario en la aplicacion
-public class AuthService {
+public class AuthenticationService {
 
     private final UserDaoImpl DAO;
-    private final String regex;
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
-    public AuthService(UserDaoImpl DAO) {
+    public AuthenticationService(UserDaoImpl DAO) {
         this.DAO = DAO;
-        this.regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
     }
 
     private boolean isValidEmail(String email) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        return EMAIL_PATTERN.matcher(email).matches();
     }
 
     private boolean matchesPassword(String password, String confirm_password) {
@@ -45,7 +40,7 @@ public class AuthService {
     }
 
     public Boolean validateLoginInput(String email, String password) {
-        if (email == null || password == null) return false;
+        if (email == null || (password == null || password.isEmpty())) return false;
         return isValidEmail(email);
     }
 
@@ -66,23 +61,25 @@ public class AuthService {
      * una nueva cuenta con el DAO que recibimos del servlet.
      * params => (String email, String password)
      * */
-    public void registerUser(String email, String password) throws SQLException {
+    public Boolean registerUser(String email, String password) throws SQLException {
         User user = new User();
+        user.setProfilePicture(null);
         user.setEmail(email);
         user.setPasswordHash(hashPassword(password));
         user.setRegisterDate(getLocalDateTime());
-        this.DAO.insert(user);
+        return this.DAO.insert(user);
     }
 
+    // hay un problema al actualizar el ultimo inicio de sesión
     public User authenticationUser(String email, String password) throws SQLException {
         User found_user = this.DAO.findBy("email", email);
 
-        if (!BCrypt.checkpw(password, found_user.getPasswordHash())) return null;
-        if (found_user.getLastLogin() == null) found_user.setLastLogin(getLocalDateTime()); // si nunca ha iniciado sesión se crea si primer registro
+        // validamos el correo antes de obtener las propiedades del objeto así evitamos un NullPointException
+        if (found_user == null || !BCrypt.checkpw(password, found_user.getPasswordHash())) return null;
+        if (found_user.getLastLogin() == null) found_user.setLastLogin(getLocalDateTime()); // si nunca ha iniciado sesión se crea el primer registro
 
         User update_user = new User(found_user);
         update_user.setLastLogin(getLocalDateTime());
-        System.out.println(this.DAO.update(update_user));
         return found_user;
     }
 

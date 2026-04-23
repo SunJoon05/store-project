@@ -11,7 +11,7 @@
     <div class="content-spacing">
         <div class="header-bottom__content --flex-space-between">
             <nav class="header-bottom__navigation --flex-center --gap-normal">
-                <a class="header-bottom__link" href="https://">
+                <a class="header-bottom__link" href="<%= request.getContextPath() %>/index.jsp">
                     <span class="header-bottom__text">
                         Home
                     </span>

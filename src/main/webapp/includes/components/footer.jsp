@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <footer>
-    <%@ include file="footer-top.jsp"%>
-    <%@ include file="footer-main.jsp" %>
-    <%@ include file="footer-bottom.jsp" %>
+    <%@ include file="../organisms/footer-top.jsp"%>
+    <%@ include file="../organisms/footer-main.jsp" %>
+    <%@ include file="../organisms/footer-bottom.jsp" %>
 </footer>

@@ -1,6 +1,5 @@
 const carousel = document.getElementById("carousel");
 
-// 🔹 1. Duplicar contenido
 carousel.innerHTML += carousel.innerHTML;
 
 carousel.addEventListener("scroll", () => {
