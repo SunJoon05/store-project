@@ -101,13 +101,13 @@ public class User {
     }
 
     public String getFullName() {
-        if (!hasValue(this.first_name) || !hasValue(this.last_name)) return null;
+        if (hasValue(this.first_name) || hasValue(this.last_name)) return null;
 
         return  this.first_name + " " + this.last_name;
     }
 
     public boolean hasValue(String value) {
-        return (value != null && !value.isEmpty());
+        return (value == null || value.isEmpty());
     }
 
     public Integer getAge() {

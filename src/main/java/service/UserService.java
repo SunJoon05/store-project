@@ -16,15 +16,17 @@ public class UserService {
 
     public UserService(UserDaoImpl DAO) { this.DAO = DAO; }
 
-    public String saveProfilePicture(Part file_uploaded, Integer id, String first_name) throws IOException {
+    private String saveProfilePicture(Part file_uploaded, Integer id) throws IOException{
         String file_name = "";
 
         if (file_uploaded != null) {
 
-            file_name = id + "_" + first_name + "_" +file_uploaded.getSubmittedFileName();
+            file_name = id + "_" +file_uploaded.getSubmittedFileName();
 
             File folder = new File(PATH);
-            if (!folder.exists()) folder.mkdirs();
+            if (!folder.exists()) {
+                boolean mkdirs = folder.mkdirs();
+            }
 
             String full_path = PATH + File.separator + file_name;
             File saved_file = new File(full_path);
@@ -37,10 +39,16 @@ public class UserService {
         return file_name;
     }
 
-    public HashMap<String, Object> updateUserInformation(User latest, Integer id) throws SQLException {
+    public HashMap<String, Object> processUserUpdate(User latest, Part file, Integer id) throws SQLException {
         HashMap<String, Object> report = new HashMap<>();
         report.put("success", false);
         report.put("entity", null);
+
+        try {
+            latest.setProfilePicture(this.saveProfilePicture(file, id));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         User oldest = this.DAO.findBy("id", id);
 

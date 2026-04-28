@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
-// este servicio se encarga de la autenticacion y seguridad
-// la registrar un nuevo usuario en la aplicacion
 public class AuthenticationService {
 
     private final UserDaoImpl DAO;
@@ -70,17 +68,17 @@ public class AuthenticationService {
         return this.DAO.insert(user);
     }
 
-    // hay un problema al actualizar el ultimo inicio de sesión
     public User authenticationUser(String email, String password) throws SQLException {
-        User found_user = this.DAO.findBy("email", email);
+        User current = this.DAO.findBy("email", email);
 
-        // validamos el correo antes de obtener las propiedades del objeto así evitamos un NullPointException
-        if (found_user == null || !BCrypt.checkpw(password, found_user.getPasswordHash())) return null;
-        if (found_user.getLastLogin() == null) found_user.setLastLogin(getLocalDateTime()); // si nunca ha iniciado sesión se crea el primer registro
+        if (!BCrypt.checkpw(password, current.getPasswordHash())) return null;
 
-        User update_user = new User(found_user);
-        update_user.setLastLogin(getLocalDateTime());
-        return found_user;
+        String previous_login = current.getLastLogin() == null ? getLocalDateTime() : current.getLastLogin();
+        current.setLastLogin(getLocalDateTime());
+        this.DAO.update(current);
+
+        current.setLastLogin(previous_login);
+
+        return current;
     }
-
 }
