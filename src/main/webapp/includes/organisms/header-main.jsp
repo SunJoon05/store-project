@@ -10,7 +10,7 @@
 <section class="header-main --flex-center --padding-block-narrowly">
     <div class="content-spacing">
         <div class="header-main__content --flex-space-between">
-            <a class="header-main__link --flex-center --gap-narrowly" href="<%= request.getContextPath() %>/index.jsp">
+            <a class="header-main__link --flex-center --gap-narrowly" href="<%= ApplicationConfiguration.getProperty("view.home") %>">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"></path><path fill="currentColor" d="M4.712 18.141c-1.537-1.69-1.957-3.828-1.77-5.738c.206-2.107 1.167-4.128 2.418-5.171c1.672-1.393 3.428-1.965 4.952-2.245a26 26 0 0 1 2.24-.283c.404-.038.813-.076 1.206-.174c.828-.207 1.645-.543 2.318-1.077c.308-.245.62-.493 1.035-.447a1 1 0 0 1 .735.46c3.2 5.067 2.717 10.446.044 13.834c-1.335 1.691-3.21 2.871-5.397 3.22c-1.908.303-3.993-.036-6.094-1.136a11 11 0 0 0-.41 1.758a1 1 0 1 1-1.98-.283c.124-.865.36-1.786.703-2.718m5.96-11.187c.704-.129 1.365-.191 2.007-.254c.524-.05 1.052-.102 1.564-.23a8.9 8.9 0 0 0 2.45-1.006c2.178 4.117 1.57 8.134-.373 10.598c-1.048 1.328-2.489 2.22-4.14 2.482c-1.483.236-3.2-.024-5.03-1.026c1.112-2.267 2.93-4.44 5.297-5.623a1 1 0 1 0-.894-1.79c-2.608 1.304-4.606 3.559-5.905 5.964c-.641-1.05-.833-2.271-.715-3.472c.169-1.728.96-3.205 1.707-3.829c1.328-1.107 2.728-1.574 4.033-1.814Z"></path></g></svg>
                 </span>
@@ -41,7 +41,7 @@
                         <path d="M9.4659 11.1018H9.42013" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                 </a>
-                <a href="<%= request.getContextPath() %>/login" class="header-main__icon --padding-inline-narrowly --flex-center">
+                <a href="" class="header-main__icon --padding-inline-narrowly --flex-center">
                     <svg id="Profile" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12.25 21.829C8.43598 21.829 5.17798 21.252 5.17798 18.942C5.17798 16.632 8.41498 14.531 12.25 14.531C16.064 14.531 19.322 16.612 19.322 18.921C19.322 20.547 17.716 21.325 15.427 21.643" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                         <path d="M12.2496 2.17102C9.74658 2.17102 7.71658 4.20002 7.71658 6.70402C7.70758 9.19802 9.72358 11.228 12.2176 11.237H12.2496C14.7526 11.237 16.7826 9.20702 16.7826 6.70402C16.7826 5.20602 16.0566 3.87802 14.9366 3.05302" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>

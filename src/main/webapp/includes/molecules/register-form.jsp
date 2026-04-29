@@ -29,7 +29,7 @@
 
         <p class="register-card__footer">
             Already have an account?
-            <a class="register-link link--accent" href="<%= request.getContextPath() %>/login">Sign In</a>
+            <a class="register-link link--accent" href="<%= ApplicationConfiguration.getPath("app.root", "servlet.login") %>">Sign In</a>
         </p>
 
     </div>

@@ -13,7 +13,7 @@
 </head>
 <body>
 <%@ include file="includes/components/header.jsp" %>
-<%@ include file="views/users/home-page.jsp" %>
+<%@ include file="includes/organisms/home.jsp" %>
 <%@ include file="includes/components/footer.jsp"%>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package controller;
 
+import config.ApplicationConfiguration;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -25,11 +26,11 @@ public class LoginController extends HttpServlet{
         HttpSession session = req.getSession(false);
 
         if (session != null && session.getAttribute("user") != null) {
-            resp.sendRedirect(req.getContextPath() + "/profile-checkout");
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
             return;
         }
 
-        req.getRequestDispatcher("/views/auth/login.jsp").forward(req, resp);
+        req.getRequestDispatcher(ApplicationConfiguration.getPath("dir.views", "dir.auth", "view.login")).forward(req, resp);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class LoginController extends HttpServlet{
 
             found.setPasswordHash(null);
             session.setAttribute("user", found);
-            resp.sendRedirect(req.getContextPath() + "/profile-checkout");
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,7 +67,7 @@ public class LoginController extends HttpServlet{
     private void sendError(HttpServletRequest req, HttpServletResponse resp, String msg) throws ServletException, IOException {
         req.setAttribute("resp", "rejected");
         req.setAttribute("message", msg);
-        req.getRequestDispatcher("/views/auth/login.jsp").forward(req, resp);
+        req.getRequestDispatcher(ApplicationConfiguration.getPath("dir.views", "dir.auth", "view.login")).forward(req, resp);
     }
 
     }

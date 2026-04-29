@@ -1,4 +1,6 @@
-package config.database;
+package database;
+
+import config.ApplicationConfiguration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,14 +8,14 @@ import java.sql.SQLException;
 
 public class DataSource {
 
-    private static final String DATABASE = "store-bd";
-    private static final String HOST = "127.0.0.1";
-    private static final String PORT = "3306";
-    private static final String USER = "root";
-    private static final String PASS = "1234a";
+    private static final String DATABASE = ApplicationConfiguration.getProperty("database.name");
+    private static final String HOST = ApplicationConfiguration.getProperty("database.host");
+    private static final String PORT = ApplicationConfiguration.getProperty("database.port");
+    private static final String USER = ApplicationConfiguration.getProperty("database.user");
+    private static final String PASS = ApplicationConfiguration.getProperty("database.pass");
     private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
     private static final String DRIVER =  "com.mysql.cj.jdbc.Driver";
-    private static Connection connection; // static instance apply the singleton pattern
+    private static Connection connection;
 
     private DataSource(){}
 

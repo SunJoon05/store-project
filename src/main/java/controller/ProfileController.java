@@ -1,5 +1,6 @@
 package controller;
 
+import config.ApplicationConfiguration;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,7 +11,7 @@ import model.entities.User;
 
 import java.io.IOException;
 
-@WebServlet("/profile-checkout")
+@WebServlet("/data-preparation")
 public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,6 +34,6 @@ public class ProfileController extends HttpServlet {
         req.setAttribute("register_date", user.getRegisterDate());
         req.setAttribute("profile_picture", req.getContextPath() + "/assets/images/profiles/" + user.getProfilePicture());
         req.setAttribute("age", user.getAge() == null ? incomplete : user.getAge());
-        req.getRequestDispatcher("/views/users/profile.jsp").forward(req, resp);
+        req.getRequestDispatcher(ApplicationConfiguration.getPath( "dir.views", "dir.users", "view.profile")).forward(req, resp);
     }
 }

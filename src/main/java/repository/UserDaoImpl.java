@@ -1,14 +1,12 @@
 package repository;
 
-import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 import model.entities.Role;
 import model.entities.User;
-import static config.database.DataSource.getConnection;
+import static database.DataSource.getConnection;
 
 public class UserDaoImpl implements UserDao{
     private static final String TABLE = "users";

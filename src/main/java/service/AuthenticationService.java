@@ -71,7 +71,7 @@ public class AuthenticationService {
     public User authenticationUser(String email, String password) throws SQLException {
         User current = this.DAO.findBy("email", email);
 
-        if (!BCrypt.checkpw(password, current.getPasswordHash())) return null;
+        if (current == null || !BCrypt.checkpw(password, current.getPasswordHash())) return null;
 
         String previous_login = current.getLastLogin() == null ? getLocalDateTime() : current.getLastLogin();
         current.setLastLogin(getLocalDateTime());

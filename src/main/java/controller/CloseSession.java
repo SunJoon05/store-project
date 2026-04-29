@@ -1,5 +1,6 @@
 package controller;
 
+import config.ApplicationConfiguration;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,6 +20,6 @@ public class CloseSession extends HttpServlet {
             session.invalidate();
         }
 
-        resp.sendRedirect(req.getContextPath() + "/login");
+        resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "dir.views", "dir.auth", "view.login"));
     }
 }

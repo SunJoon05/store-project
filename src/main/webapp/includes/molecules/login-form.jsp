@@ -11,7 +11,7 @@
 
         <h2 class="login-card__title">Sign In</h2>
 
-        <form class="login-form --flex-column-center --gap-normal" action="<%= request.getContextPath() %>/login" method="POST">
+        <form class="login-form --flex-column-center --gap-normal" action="<%= ApplicationConfiguration.getPath("app.root", "servlet.login")%>" method="POST">
             <div class="login-form__field">
                 <input class="login-form__input --input" type="email" id="email" name="email" placeholder="Email Address">
             </div>
@@ -25,7 +25,7 @@
 
         <p class="login-card__footer">
             Don't have an account?
-            <a class="login-link link--accent" href="<%= request.getContextPath() %>/register">Sign Up</a>
+            <a class="login-link link--accent" href="<%= ApplicationConfiguration.getPath("app.root", "servlet.register") %>">Sign Up</a>
         </p>
     </div>
     <%@ include file="modal-error.jsp" %>

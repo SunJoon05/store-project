@@ -1,4 +1,4 @@
-<%--
+<%@ page import="config.ApplicationConfiguration" %><%--
   Created by IntelliJ IDEA.
   User: alexs
   Date: 7/02/2026
@@ -32,9 +32,9 @@
                 </address>
             </div>
             <div class="authentication-store">
-                <a class="authentication-store__anchor" href="<%= request.getContextPath() %>/login">Sign In</a>
+                <a class="authentication-store__anchor" href="<%= ApplicationConfiguration.getPath("app.root", "dir.views", "dir.auth", "view.login") %>">Sign In</a>
                 <span>/</span>
-                <a class="authentication-store__anchor" href="<%= request.getContextPath() %>/register">Sign Up</a>
+                <a class="authentication-store__anchor" href="<%= ApplicationConfiguration.getPath("app.root", "dir.views", "dir.auth", "view.register") %>">Sign Up</a>
             </div>
         </div>
     </div>
