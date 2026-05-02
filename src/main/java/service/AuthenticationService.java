@@ -2,7 +2,7 @@ package service;
 
 import model.entities.User;
 import org.mindrot.jbcrypt.BCrypt;
-import repository.UserDaoImpl;
+import repository.UserImplementation;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 
 public class AuthenticationService {
 
-    private final UserDaoImpl DAO;
+    private final UserImplementation DAO;
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
-    public AuthenticationService(UserDaoImpl DAO) {
+    public AuthenticationService(UserImplementation DAO) {
         this.DAO = DAO;
     }
 

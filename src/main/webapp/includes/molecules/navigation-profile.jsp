@@ -57,6 +57,18 @@
                 Settings
             </span>
         </a>
+        <a class="navigation-profile__option --flex-center --gap-normal" data-option="management">
+            <span class="navigation-profile__icon">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                      fill="currentColor" viewBox="0 0 24 24" >
+                    <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                    <path d="M20 9h-8V2c0-.45-.3-.85-.74-.97s-.9.07-1.12.46l-7 12.01c-.18.31-.18.69 0 1s.51.5.87.5h8v7c0 .45.3.85.74.97.09.02.17.03.26.03.35 0 .68-.18.86-.5l7-12c.18-.31.18-.69 0-1S20.36 9 20 9m-6 9.3V14c0-.55-.45-1-1-1H5.74L10 5.7V10c0 .55.45 1 1 1h7.26z"></path>
+                </svg>
+            </span>
+            <span class="navigation-profile__description">
+                Management
+            </span>
+        </a>
         <a href="<%= ApplicationConfiguration.getPath("app.root", "servlet.close") %>" class="navigation-profile__option --flex-center --gap-normal">
             <span class="navigation-profile__icon">
                 <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"

@@ -5,7 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import model.entities.User;
-import repository.UserDaoImpl;
+import repository.UserImplementation;
 import service.AuthenticationService;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class LoginController extends HttpServlet{
 
     @Override
     public void init() {
-        UserDaoImpl DAO = new UserDaoImpl();
+        UserImplementation DAO = new UserImplementation();
         this.auth = new AuthenticationService(DAO);
     }
 

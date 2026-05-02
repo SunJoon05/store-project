@@ -8,13 +8,14 @@ import model.entities.Role;
 import model.entities.User;
 import static database.DataSource.getConnection;
 
-public class UserDaoImpl implements UserDao{
-    private static final String TABLE = "users";
+public class UserImplementation implements UserDao {
+    public static final String TABLE = "users";
 
     @Override
     public List<User> findAll() throws SQLException {
-        String query = "SELECT * FROM " + TABLE;
         List<User> users = new ArrayList<>();
+        // traer todos los usuarios con un role asignado
+        String query = "SELECT users.*, user_role.role_id FROM users INNER JOIN user_role ON users.id = user_role.user_id";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -86,7 +87,6 @@ public class UserDaoImpl implements UserDao{
                         "birth_date = ?, " +
                         "register_date = ?, " +
                         "last_login = ?, " +
-                        "role_id = ?, " +
                         "state = ? " +
                         "WHERE id = ?";
 
@@ -101,9 +101,8 @@ public class UserDaoImpl implements UserDao{
             pstmt.setObject(7, entity.getBirthDate(), Types.VARCHAR);
             pstmt.setObject(8, entity.getRegisterDate(), Types.VARCHAR);
             pstmt.setObject(9, entity.getLastLogin(), Types.VARCHAR);
-            pstmt.setInt(10, Role.CLIENT.getId());
-            pstmt.setBoolean(11, true);
-            pstmt.setInt(12, entity.getId());
+            pstmt.setBoolean(10, true);
+            pstmt.setInt(11, entity.getId());
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,7 +120,7 @@ public class UserDaoImpl implements UserDao{
     @Override
     public <T> User findBy(String column_label, T any) throws SQLException {
         User found_user = null;
-        String query = "SELECT * FROM " + TABLE + " WHERE " + column_label + " = ?";
+        String query = "SELECT users.*, user_roles.role_id FROM users INNER JOIN user_roles ON users.id = user_roles.user_id WHERE "+ column_label +" = ?";
 
         try(Connection conn = getConnection();
             PreparedStatement pstmt = conn.prepareStatement(query)){

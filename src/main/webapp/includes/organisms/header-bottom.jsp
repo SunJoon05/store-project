@@ -11,7 +11,7 @@
     <div class="content-spacing">
         <div class="header-bottom__content --flex-space-between">
             <nav class="header-bottom__navigation --flex-center --gap-normal">
-                <a class="header-bottom__link" href="<%= ApplicationConfiguration.getPath("view.home") %>">
+                <a class="header-bottom__link" href="<%= ApplicationConfiguration.getPath("app.root", "view.home") %>">
                     <span class="header-bottom__text">
                         Home
                     </span>

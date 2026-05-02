@@ -1,11 +1,12 @@
 package controller;
 
+import config.ApplicationConfiguration;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import repository.UserDaoImpl;
+import repository.UserImplementation;
 import service.AuthenticationService;
 
 import java.io.IOException;
@@ -17,13 +18,13 @@ import java.sql.SQLException;
 public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/views/auth/register.jsp").forward(req,resp);
+        req.getRequestDispatcher(ApplicationConfiguration.getPath("dir.views", "dir.auth", "view.register")).forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        UserDaoImpl DAO = new UserDaoImpl();
+        UserImplementation DAO = new UserImplementation();
         AuthenticationService auth = new AuthenticationService(DAO);
 
         String email = req.getParameter("email");
@@ -34,7 +35,7 @@ public class RegisterController extends HttpServlet {
 
         if (!is_valid) {
             req.setAttribute("resp", "rejected");
-            req.getRequestDispatcher("/views/auth/register.jsp").forward(req,resp);
+            req.getRequestDispatcher(ApplicationConfiguration.getPath("dir.views", "dir.auth", "view.register")).forward(req,resp);
             return;
         }
 
@@ -46,7 +47,7 @@ public class RegisterController extends HttpServlet {
                 req.setAttribute("resp", "rejected");
             }
 
-            req.getRequestDispatcher("/views/auth/register.jsp").forward(req,resp);
+            req.getRequestDispatcher(ApplicationConfiguration.getPath("dir.views", "dir.auth", "view.register")).forward(req,resp);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

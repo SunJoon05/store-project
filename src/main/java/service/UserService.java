@@ -2,7 +2,7 @@ package service;
 
 import jakarta.servlet.http.Part;
 import model.entities.User;
-import repository.UserDaoImpl;
+import repository.UserImplementation;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,17 +11,17 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 public class UserService {
-    private final UserDaoImpl DAO;
+    private final UserImplementation DAO;
     private static final String PATH = "C:\\Users\\alexs\\OneDrive\\Escritorio\\Java\\store-project\\src\\main\\webapp\\assets\\images\\profiles";
 
-    public UserService(UserDaoImpl DAO) { this.DAO = DAO; }
+    public UserService(UserImplementation DAO) { this.DAO = DAO; }
 
     private String saveProfilePicture(Part file_uploaded, Integer id) throws IOException{
         String file_name = "";
 
         if (file_uploaded != null) {
 
-            file_name = id + "_" +file_uploaded.getSubmittedFileName();
+            file_name = id + "_" + file_uploaded.getSubmittedFileName();
 
             File folder = new File(PATH);
             if (!folder.exists()) {

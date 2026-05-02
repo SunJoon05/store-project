@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.entities.User;
 
+import java.io.File;
 import java.io.IOException;
 
 @WebServlet("/data-preparation")
@@ -32,7 +33,7 @@ public class ProfileController extends HttpServlet {
         req.setAttribute("state", user.getState() ? "Active" : "Inactive");
         req.setAttribute("last_login", user.getLastLogin());
         req.setAttribute("register_date", user.getRegisterDate());
-        req.setAttribute("profile_picture", req.getContextPath() + "/assets/images/profiles/" + user.getProfilePicture());
+        req.setAttribute("profile_picture", ApplicationConfiguration.getPath("app.root", "dir.assets", "dir.images", "dir.profiles") + File.separator +  user.getProfilePicture());
         req.setAttribute("age", user.getAge() == null ? incomplete : user.getAge());
         req.getRequestDispatcher(ApplicationConfiguration.getPath( "dir.views", "dir.users", "view.profile")).forward(req, resp);
     }

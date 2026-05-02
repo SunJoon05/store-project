@@ -1,5 +1,6 @@
 package controller;
 
+import config.ApplicationConfiguration;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -7,10 +8,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import mapper.UserRequestMapper;
 import model.entities.User;
-import repository.UserDaoImpl;
+import repository.UserImplementation;
 import service.UserService;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class UpdateUserData extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) {
-        UserDaoImpl DAO = new UserDaoImpl();
+        UserImplementation DAO = new UserImplementation();
         this.user_service = new UserService(DAO);
     }
 
@@ -48,9 +48,9 @@ public class UpdateUserData extends HttpServlet {
 
         if (success) {
             req.getSession().setAttribute("user", entity);
-            resp.sendRedirect(req.getContextPath() + "/profile-checkout");
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
         } else {
-            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.login"));
         }
     }
 }
