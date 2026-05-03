@@ -1,0 +1,41 @@
+package service;
+
+import jakarta.servlet.http.HttpSession;
+import model.entities.Permission;
+import repository.PermissionsImplementation;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PermissionService {
+
+    private final PermissionsImplementation DAO;
+
+    public PermissionService(PermissionsImplementation DAO) {
+        this.DAO = DAO;
+    }
+
+    public List<Permission> userPermissionsById(int role_id) {
+        List<Permission> permissions = new ArrayList<>();
+
+        try {
+            permissions = this.DAO.findPermissionsById(role_id);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return permissions;
+    }
+
+    public static boolean can(HttpSession session, Permission permission) {
+        List<Permission> permissions = (List<Permission>) session.getAttribute("permissions");
+
+        for (Permission perm: permissions) {
+            System.out.println(perm);
+        }
+
+        return permissions != null && permissions.contains(permission);
+    }
+
+}

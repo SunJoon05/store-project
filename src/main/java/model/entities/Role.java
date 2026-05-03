@@ -1,7 +1,5 @@
 package model.entities;
 
-import java.util.EnumSet;
-
 public enum Role {
     ADMIN(1, "ADMINISTRATOR"),
     SUPERVISOR(2, "SUPERVISOR"),

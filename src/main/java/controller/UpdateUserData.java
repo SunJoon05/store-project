@@ -22,8 +22,8 @@ public class UpdateUserData extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) {
-        UserImplementation DAO = new UserImplementation();
-        this.user_service = new UserService(DAO);
+        UserImplementation USER_DAO = new UserImplementation();
+        this.user_service = new UserService(USER_DAO);
     }
 
     @Override

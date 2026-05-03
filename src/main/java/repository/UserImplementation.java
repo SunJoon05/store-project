@@ -14,7 +14,6 @@ public class UserImplementation implements UserDao {
     @Override
     public List<User> findAll() throws SQLException {
         List<User> users = new ArrayList<>();
-        // traer todos los usuarios con un role asignado
         String query = "SELECT users.*, user_role.role_id FROM users INNER JOIN user_role ON users.id = user_role.user_id";
 
         try (Connection conn = getConnection();

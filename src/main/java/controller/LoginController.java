@@ -4,21 +4,29 @@ import config.ApplicationConfiguration;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import model.entities.Permission;
 import model.entities.User;
+import repository.PermissionsImplementation;
 import repository.UserImplementation;
 import service.AuthenticationService;
+import service.PermissionService;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet{
-    private AuthenticationService auth;
+
+    private AuthenticationService authentication_service;
+    private PermissionService permissions_service;
 
     @Override
     public void init() {
-        UserImplementation DAO = new UserImplementation();
-        this.auth = new AuthenticationService(DAO);
+        UserImplementation USER_DAO = new UserImplementation();
+        PermissionsImplementation PERMISSIONS_DAO = new PermissionsImplementation();
+        this.authentication_service = new AuthenticationService(USER_DAO);
+        this.permissions_service = new PermissionService(PERMISSIONS_DAO);
     }
 
     @Override
@@ -39,13 +47,13 @@ public class LoginController extends HttpServlet{
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        if (!auth.validateLoginInput(email, password)) {
+        if (!authentication_service.validateLoginInput(email, password)) {
             sendError(req, resp, "Invalid input format.");
             return;
         }
 
         try {
-            User found = this.auth.authenticationUser(email, password);
+            User found = this.authentication_service.authenticationUser(email, password);
 
             if (found == null) {
                 sendError(req, resp, "Invalid username or password.");
@@ -57,7 +65,11 @@ public class LoginController extends HttpServlet{
             HttpSession session = req.getSession(true);
 
             found.setPasswordHash(null);
+            List<Permission> permissions = this.permissions_service.userPermissionsById(found.getRole().getId());
+
+            session.setAttribute("permissions", permissions);
             session.setAttribute("user", found);
+
             resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,4 +82,4 @@ public class LoginController extends HttpServlet{
         req.getRequestDispatcher(ApplicationConfiguration.getPath("dir.views", "dir.auth", "view.login")).forward(req, resp);
     }
 
-    }
+}

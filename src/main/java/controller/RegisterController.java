@@ -24,14 +24,14 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        UserImplementation DAO = new UserImplementation();
-        AuthenticationService auth = new AuthenticationService(DAO);
+        UserImplementation USER_DAO = new UserImplementation();
+        AuthenticationService authentication_service = new AuthenticationService(USER_DAO);
 
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String confirm_password = req.getParameter("confirm");
 
-        boolean is_valid = auth.validateRegistrationInput(email, password, confirm_password);
+        boolean is_valid = authentication_service.validateRegistrationInput(email, password, confirm_password);
 
         if (!is_valid) {
             req.setAttribute("resp", "rejected");
@@ -41,7 +41,7 @@ public class RegisterController extends HttpServlet {
 
         try {
 
-            if (auth.registerUser(email, password)) {
+            if (authentication_service.registerUser(email, password)) {
                 req.setAttribute("resp", "success");
             } else {
                 req.setAttribute("resp", "rejected");

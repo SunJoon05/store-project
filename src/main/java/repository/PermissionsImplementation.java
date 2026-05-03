@@ -1,7 +1,8 @@
 package repository;
 
-import static database.DataSource.getConnection;
 import model.entities.Permission;
+
+import static database.DataSource.getConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,12 +15,13 @@ public class PermissionsImplementation implements PermissionsDao {
 
     // devolver los permisos de la base de datos de todos los usuarios
     @Override
-    public List<Permission> findPermissionsById(Integer role_id) throws SQLException {
-        String query = "SELECT id, name, action FROM permissions p INNER JOIN role_permissions rp ON p.id = rp.permission_id WHERE rp.role_id = ?";
+    public List<Permission> findPermissionsById(int role_id) throws SQLException {
+        String query = "SELECT id, name, resource, action FROM permissions p INNER JOIN role_permissions rp ON p.id = rp.permission_id WHERE rp.role_id = ?";
         List<Permission> permissions = new ArrayList<>();
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, role_id);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -55,10 +57,8 @@ public class PermissionsImplementation implements PermissionsDao {
     }
 
     private Permission normalizePermission(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
         String resource = rs.getString("resource");
         String action = rs.getString("action");
-        return new Permission(id, name, resource, action);
+        return Permission.from(resource, action);
     }
 }

@@ -1,3 +1,5 @@
+<%@ page import="service.PermissionService" %>
+<%@ page import="model.entities.Permission" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <section class="navigation-profile__section --flex-column-left  --gap-normal">
     <h2 class="navigation-profile__title">Navigation</h2>
@@ -57,7 +59,7 @@
                 Settings
             </span>
         </a>
-        <a class="navigation-profile__option --flex-center --gap-normal" data-option="management">
+        <a class="<%= PermissionService.can(request.getSession(false), Permission.USERS_HANDLE) ? "--show" : "--hidden" %> navigation-profile__option --flex-center --gap-normal" data-option="management">
             <span class="navigation-profile__icon">
                 <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                       fill="currentColor" viewBox="0 0 24 24" >
