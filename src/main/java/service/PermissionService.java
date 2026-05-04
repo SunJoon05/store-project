@@ -30,11 +30,6 @@ public class PermissionService {
 
     public static boolean can(HttpSession session, Permission permission) {
         List<Permission> permissions = (List<Permission>) session.getAttribute("permissions");
-
-        for (Permission perm: permissions) {
-            System.out.println(perm);
-        }
-
         return permissions != null && permissions.contains(permission);
     }
 

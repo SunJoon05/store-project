@@ -5,7 +5,9 @@ public enum Permission {
     USERS_CREATE("users", "create"),
     USERS_READ("users", "read"),
     USERS_UPDATE("users", "update"),
-    USERS_DELETE("users", "delete");
+    USERS_DELETE("users", "delete"),
+
+    POSTS_HANDLE("posts", "handle");
 
     public final String resource;
     public final String action;
