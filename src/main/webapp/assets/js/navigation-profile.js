@@ -13,11 +13,13 @@ const NavigationProfile = (() => {
         navigation_options.forEach(option => {
             option.addEventListener("click", () => {
                 const target = option.dataset?.option;
+                console.log(target)
 
                 navigation_sections.forEach(section => {
                     const section_id = section.dataset?.sectionId;
 
                     if (section_id === target) {
+                        console.log(section_id)
                         section.classList.remove("--hidden");
                         section.classList.add("--visible")
                     } else {

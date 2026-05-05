@@ -3,7 +3,6 @@ package repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.entities.Role;
 import model.entities.User;
 import static database.DataSource.getConnection;
@@ -14,7 +13,7 @@ public class UserImplementation implements UserDao {
     @Override
     public List<User> findAll() throws SQLException {
         List<User> users = new ArrayList<>();
-        String query = "SELECT users.*, user_role.role_id FROM users INNER JOIN user_role ON users.id = user_role.user_id";
+        String query = "SELECT users.*, user_roles.role_id FROM users INNER JOIN user_roles ON users.id = user_roles.user_id";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {

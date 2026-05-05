@@ -1,4 +1,5 @@
 .navigation-profile__section {
+    flex-shrink: 0;
     background-color: var(--color-bg-primary);
     box-shadow: 0 0 5px 0 rgba(117, 117, 117, 0.2);
     border-radius: .5rem;

@@ -1,0 +1,50 @@
+.users-management {
+    box-shadow: 0 0 5px 0 rgba(117, 117, 117, 0.2);
+    border-radius: .5rem;
+    background-color: var(--color-bg-primary);
+    overflow: hidden;
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.users__management-title {
+    font-weight: 500;
+    inline-size: 100%;
+    text-align: left;
+    padding: var(--spacing-normal);
+}
+
+.users__management-table {
+    border-collapse: collapse;
+}
+
+.users__management-head {
+    text-align: left;
+    padding: var(--spacing-narrowly);
+    text-wrap: nowrap;
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-small);
+    text-transform: uppercase;
+    background: #C6C6C613;
+}
+
+.users__management-data {
+    font-size: var(--font-size-small);
+    text-wrap: nowrap;
+    padding: var(--spacing-narrowly);
+
+    &.--user-state {
+        color: var(--color-text-quaternary);
+    }
+}
+
+.user__management-action {
+    color: var(--color-text-secondary);
+    background: var(--color-text-quaternary);
+    outline: none;
+    border: none;
+    border-radius: .3rem;
+    padding: .2rem;
+}
