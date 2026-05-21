@@ -4,7 +4,7 @@
 <section class="navigation-profile__section --flex-column-left  --gap-normal">
     <h2 class="navigation-profile__title">Navigation</h2>
     <nav class="navigation-profile__nav --flex-column-left">
-        <a class="navigation-profile__option --flex-center --gap-normal" data-option="information">
+        <a href="<%= ApplicationConfiguration.getPath("app.root", "servlet.check") %>?section=information" class="navigation-profile__option --flex-center --gap-normal" data-option="information">
             <span class="navigation-profile__icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                      fill="currentColor" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@
                 Settings
             </span>
         </a>
-        <a class="<%= PermissionService.can(request.getSession(false), Permission.USERS_HANDLE) ? "--show" : "--hidden" %> navigation-profile__option --flex-center --gap-normal" data-option="management">
+        <a href="<%= ApplicationConfiguration.getPath("app.root", "servlet.check") %>?section=management" class="<%= PermissionService.can(request.getSession(false), Permission.USERS_HANDLE) ? "--show" : "--hidden" %> navigation-profile__option --flex-center --gap-normal" data-option="management">
             <span class="navigation-profile__icon">
                 <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                       fill="currentColor" viewBox="0 0 24 24" >

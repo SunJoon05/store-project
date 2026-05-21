@@ -6,9 +6,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import mapper.UserRequestMapper;
+import util.UserRequestMapper;
 import model.entities.User;
-import repository.UserImplementation;
+import repository.UserRepo;
 import service.UserService;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class UpdateUserData extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) {
-        UserImplementation USER_DAO = new UserImplementation();
+        UserRepo USER_DAO = new UserRepo();
         this.user_service = new UserService(USER_DAO);
     }
 

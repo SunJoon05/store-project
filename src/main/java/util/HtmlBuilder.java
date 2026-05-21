@@ -1,17 +1,13 @@
-package mapper;
+package util;
 
 import model.entities.User;
-import repository.UserImplementation;
-
-import java.sql.SQLException;
-import java.util.List;
-import java.util.stream.Collectors;
+import repository.UserRepo;
 
 public class HtmlBuilder {
 
-    private final UserImplementation USER_DAO = new UserImplementation();
+    public static String renderUserRow(User entity, int idx, String context_path) {
+        String details_url = context_path + "?section=details&search=" + entity.getId();
 
-    private String renderUserRow(User entity) {
         return """
                 <tr class="users__management-row">
                     <td class="users__management-data">#%s</td>
@@ -19,7 +15,9 @@ public class HtmlBuilder {
                     <td class="users__management-data">%s</td>
                     <td class="users__management-data">%s</td>
                     <td class="users__management-data">%s</td>
-                    <td class="users__management-data">%s</td>
+                    <td class="users__management-data">
+                        <a class="users__management-details" href="%s">Details</a>
+                    </td>
                     <td class="users__management-data --user-state">%s</td>
                     <td class="users__management-data">
                         <button class="user__management-action">
@@ -36,16 +34,6 @@ public class HtmlBuilder {
                         </button>
                     </td>
                 </tr>
-                """.formatted(entity.getId(), entity.getFullName(), entity.getEmail(), entity.getPhone(), entity.getRegisterDate(), entity.getRole().getTag(), entity.getState() ? "Active" : "Inactive");
-    }
-
-    public List<String> buildTableRows() throws SQLException {
-        List<User> users = this.USER_DAO.findAll();
-
-        if (users.isEmpty()) return List.of();
-
-        return users
-                .stream().map(this::renderUserRow)
-                .collect(Collectors.toList());
+                """.formatted(idx, entity.getId() ,entity.getFullName(), entity.getEmail(), entity.getRole().getTag(), details_url, entity.getState() ? "Active" : "Inactive");
     }
 }

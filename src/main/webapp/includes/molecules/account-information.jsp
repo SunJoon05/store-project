@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<section class="user__profile-section --visible" data-section-id="information">
+<section class="user__profile-section --hidden" data-section-id="information">
     <div class="account-information">
         <div class="user__profile-avatar">
             <div class="user__profile-avatar-wrapper">

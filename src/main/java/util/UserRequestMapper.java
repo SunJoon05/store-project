@@ -1,4 +1,4 @@
-package mapper;
+package util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import model.entities.User;

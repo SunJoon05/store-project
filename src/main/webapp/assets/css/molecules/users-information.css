@@ -2,17 +2,32 @@
     box-shadow: 0 0 5px 0 rgba(117, 117, 117, 0.2);
     border-radius: .5rem;
     background-color: var(--color-bg-primary);
-    overflow: hidden;
     display : flex;
     flex-direction: column;
     justify-content: center;
+    max-inline-size: 1000px;
+    min-inline-size: 1000px;
+    inline-size: 100%;
+}
+
+.users__management-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-normal);
 }
 
 .users__management-title {
     font-weight: 500;
     inline-size: 100%;
     text-align: left;
-    padding: var(--spacing-normal);
+}
+
+.users__management-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-narrowly);
 }
 
 .users__management-table {
@@ -41,10 +56,60 @@
 }
 
 .user__management-action {
-    color: var(--color-text-secondary);
-    background: var(--color-text-quaternary);
+    color: var(--color-text-tertiary);
+    background-color: transparent;
     outline: none;
     border: none;
     border-radius: .3rem;
     padding: .2rem;
+}
+
+.users__management-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    padding-block: var(--padding-narrowly);
+}
+
+.users__management-pagination-item {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5rem;
+    inline-size: 25px;
+    block-size: 25px;
+    text-decoration: none;
+    padding: .5rem;
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    cursor: pointer;
+    transition: .3s all ease-in-out;
+    color : var(--color-text-tertiary);
+}
+
+.users__management-pagination-item:hover {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
+}
+
+.users__management-row:hover .users__management-data {
+    background: var(--color-bg-light);
+}
+
+.users__management-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px 0 rgba(117, 117, 117, 0.2);
+    padding: var(--spacing-narrowly);
+    border-radius: .5rem;
+    color: var(--color-text-primary);
+}
+
+.users__management-details {
+    color: var(--color-text-tertiary);
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
 }

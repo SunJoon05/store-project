@@ -2,19 +2,21 @@ package service;
 
 import jakarta.servlet.http.Part;
 import model.entities.User;
-import repository.UserImplementation;
+import repository.UserRepo;
+import util.Pagination;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserService {
-    private final UserImplementation DAO;
+    private final UserRepo DAO;
     private static final String PATH = "C:\\Users\\alexs\\OneDrive\\Escritorio\\Java\\store-project\\src\\main\\webapp\\assets\\images\\profiles";
 
-    public UserService(UserImplementation DAO) { this.DAO = DAO; }
+    public UserService(UserRepo DAO) { this.DAO = DAO; }
 
     private String saveProfilePicture(Part file_uploaded, Integer id) throws IOException{
         String file_name = "";
@@ -50,7 +52,7 @@ public class UserService {
             e.printStackTrace();
         }
 
-        User oldest = this.DAO.findBy("id", id);
+        User oldest = this.DAO.findByProperty("id", id);
 
         if (oldest == null) return report;
 
@@ -72,5 +74,33 @@ public class UserService {
         }
 
         return report;
+    }
+
+    public Pagination UsersPagination(int offset) {
+
+        Pagination users_pagination = null;
+
+        try {
+            List<User> content = DAO.findAllPaged(offset);
+            long total_records = DAO.count();
+            users_pagination = new Pagination(content, total_records, 1, 10);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return users_pagination;
+    }
+
+    public User getUserById(Integer user_id) {
+        User find = null;
+
+        try {
+            find = this.DAO.findByProperty("id", user_id);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return find;
     }
 }

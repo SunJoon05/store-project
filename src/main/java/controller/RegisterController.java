@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import repository.UserImplementation;
+import repository.UserRepo;
 import service.AuthenticationService;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        UserImplementation USER_DAO = new UserImplementation();
+        UserRepo USER_DAO = new UserRepo();
         AuthenticationService authentication_service = new AuthenticationService(USER_DAO);
 
         String email = req.getParameter("email");

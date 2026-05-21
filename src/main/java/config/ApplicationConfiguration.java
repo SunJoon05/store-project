@@ -28,9 +28,13 @@ public class ApplicationConfiguration {
         String[] properties = new String[keys.length];
 
         for (int i = 0; i < keys.length; i++) {
-            properties[i] = File.separator + ApplicationConfiguration.getProperty(keys[i]);
+            String value = ApplicationConfiguration.getProperty(keys[i]);
+            // Use a forward slash for web URLs, not File.separator
+            properties[i] = "/" + value;
         }
 
-        return String.join("", properties);
+        String full_path = String.join("", properties);
+
+        return full_path.replace("//", "/");
     }
 }

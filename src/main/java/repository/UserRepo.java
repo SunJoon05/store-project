@@ -3,11 +3,14 @@ package repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import model.entities.Role;
+
 import model.entities.User;
+
+import javax.xml.transform.Result;
+
 import static database.DataSource.getConnection;
 
-public class UserImplementation implements UserDao {
+public class UserRepo implements UserDao {
     public static final String TABLE = "users";
 
     @Override
@@ -32,15 +35,64 @@ public class UserImplementation implements UserDao {
         return users;
     }
 
+    @Override
+    public List<User> findAllPaged(int offset) throws SQLException {
+        List<User> page = new ArrayList<>();
+        String query = """
+                SELECT users.*, role_id FROM users
+                INNER JOIN user_roles ON users.id = user_roles.user_id
+                LIMIT 10 OFFSET %s
+                """.formatted(offset);
+
+        try (Connection conn = getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                User current_user = createUser(rs);
+                page.add(current_user);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        if (page.isEmpty()) {
+            return List.of();
+        }
+
+        return page;
+    }
+
+    @Override
+    public long count() throws SQLException {
+        String query = "SELECT COUNT(*) FROM users";
+        long count = 0;
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                count = rs.getLong(1);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return count;
+    }
 
     @Override
     public Boolean insert(User entity) throws SQLException {
 
-        if (findBy("email", entity.getEmail()) != null) {
+        if (findByProperty("email", entity.getEmail()) != null) {
             return false;
         }
 
-        String query = "INSERT INTO "+ TABLE +" (first_name, last_name, email, password_hash, phone, birth_date, register_date, last_login, role_id, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO "+ TABLE +" (first_name, last_name, email, password_hash, phone, birth_date, register_date, last_login, state) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Boolean is_success = false;
 
         try (Connection conn = getConnection();
@@ -53,8 +105,7 @@ public class UserImplementation implements UserDao {
             pstmt.setString(6, entity.getBirthDate());
             pstmt.setString(7, entity.getRegisterDate());
             pstmt.setString(8, entity.getLastLogin());
-            pstmt.setInt(9, Role.CLIENT.getId());
-            pstmt.setBoolean(10,true);
+            pstmt.setBoolean(9,true);
 
             if (pstmt.executeUpdate() > 0) {
                 is_success = true;
@@ -68,7 +119,7 @@ public class UserImplementation implements UserDao {
 
     @Override
     public Boolean update(User entity) throws SQLException {
-        User old_user = findBy("id", entity.getId());
+        User old_user = findByProperty("id", entity.getId());
 
         if (old_user == null) {
             return false;
@@ -116,18 +167,19 @@ public class UserImplementation implements UserDao {
     }
 
     @Override
-    public <T> User findBy(String column_label, T any) throws SQLException {
+    public <T> User findByProperty(String column_label, T any) throws SQLException {
         User found_user = null;
         String query = "SELECT users.*, user_roles.role_id FROM users INNER JOIN user_roles ON users.id = user_roles.user_id WHERE "+ column_label +" = ?";
 
         try(Connection conn = getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(query)){
+            PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setObject(1, (Object) any);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 found_user = createUser(rs);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,7 +187,7 @@ public class UserImplementation implements UserDao {
         return found_user;
     }
 
-    private User createUser(ResultSet current_row) throws SQLException {
+    public static User createUser(ResultSet current_row) throws SQLException {
         int id = current_row.getInt("id");
         String profile_picture = current_row.getString("profile_picture");
         String first_name = current_row.getString("first_name");

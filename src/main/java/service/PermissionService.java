@@ -2,7 +2,7 @@ package service;
 
 import jakarta.servlet.http.HttpSession;
 import model.entities.Permission;
-import repository.PermissionsImplementation;
+import repository.PermissionRepo;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import java.util.List;
 
 public class PermissionService {
 
-    private final PermissionsImplementation DAO;
+    private final PermissionRepo DAO;
 
-    public PermissionService(PermissionsImplementation DAO) {
+    public PermissionService(PermissionRepo DAO) {
         this.DAO = DAO;
     }
 

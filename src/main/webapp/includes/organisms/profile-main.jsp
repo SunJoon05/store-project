@@ -7,6 +7,7 @@
             <%@ include file="../molecules/order-history.jsp"%>
             <%@ include file="../molecules/account-settings.jsp"%>
             <%@ include file="../molecules/users-information.jsp"%>
+            <%@ include file="../molecules/user-details.jsp"%>
         </div>
     </div>
 </section>

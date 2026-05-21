@@ -6,8 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import model.entities.Permission;
 import model.entities.User;
-import repository.PermissionsImplementation;
-import repository.UserImplementation;
+import repository.PermissionRepo;
+import repository.UserRepo;
 import service.AuthenticationService;
 import service.PermissionService;
 
@@ -23,8 +23,8 @@ public class LoginController extends HttpServlet{
 
     @Override
     public void init() {
-        UserImplementation USER_DAO = new UserImplementation();
-        PermissionsImplementation PERMISSIONS_DAO = new PermissionsImplementation();
+        UserRepo USER_DAO = new UserRepo();
+        PermissionRepo PERMISSIONS_DAO = new PermissionRepo();
         this.authentication_service = new AuthenticationService(USER_DAO);
         this.permissions_service = new PermissionService(PERMISSIONS_DAO);
     }

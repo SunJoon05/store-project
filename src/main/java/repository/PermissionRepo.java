@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PermissionsImplementation implements PermissionsDao {
+public class PermissionRepo implements PermissionsDao {
 
     // devolver los permisos de la base de datos de todos los usuarios
     @Override

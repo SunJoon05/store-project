@@ -2,7 +2,7 @@ package service;
 
 import model.entities.User;
 import org.mindrot.jbcrypt.BCrypt;
-import repository.UserImplementation;
+import repository.UserRepo;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 
 public class AuthenticationService {
 
-    private final UserImplementation DAO;
+    private final UserRepo DAO;
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
-    public AuthenticationService(UserImplementation DAO) {
+    public AuthenticationService(UserRepo DAO) {
         this.DAO = DAO;
     }
 
@@ -69,7 +69,7 @@ public class AuthenticationService {
     }
 
     public User authenticationUser(String email, String password) throws SQLException {
-        User current = this.DAO.findBy("email", email);
+        User current = this.DAO.findByProperty("email", email);
 
         if (current == null || !BCrypt.checkpw(password, current.getPasswordHash())) return null;
 
