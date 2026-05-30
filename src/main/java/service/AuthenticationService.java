@@ -65,13 +65,21 @@ public class AuthenticationService {
         user.setEmail(email);
         user.setPasswordHash(hashPassword(password));
         user.setRegisterDate(getLocalDateTime());
+        user.setState(true);
         return this.DAO.insert(user);
     }
 
     public User authenticationUser(String email, String password) throws SQLException {
         User current = this.DAO.findByProperty("email", email);
 
-        if (current == null || !BCrypt.checkpw(password, current.getPasswordHash())) return null;
+        if (current == null) return null;
+
+        try {
+            if(!BCrypt.checkpw(password, current.getPasswordHash())) return null;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Hash invalido para este usuario");
+            return null;
+        }
 
         String previous_login = current.getLastLogin() == null ? getLocalDateTime() : current.getLastLogin();
         current.setLastLogin(getLocalDateTime());

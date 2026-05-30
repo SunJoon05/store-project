@@ -3,11 +3,7 @@ package repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.entities.User;
-
-import javax.xml.transform.Result;
-
 import static database.DataSource.getConnection;
 
 public class UserRepo implements UserDao {
@@ -105,7 +101,7 @@ public class UserRepo implements UserDao {
             pstmt.setString(6, entity.getBirthDate());
             pstmt.setString(7, entity.getRegisterDate());
             pstmt.setString(8, entity.getLastLogin());
-            pstmt.setBoolean(9,true);
+            pstmt.setBoolean(9,entity.getState());
 
             if (pstmt.executeUpdate() > 0) {
                 is_success = true;
@@ -120,24 +116,28 @@ public class UserRepo implements UserDao {
     @Override
     public Boolean update(User entity) throws SQLException {
         User old_user = findByProperty("id", entity.getId());
+        // podemos realizar el inner join para actualizar el role en la bd
 
         if (old_user == null) {
             return false;
         }
 
-        String query =
-                "UPDATE " + TABLE + " SET " +
-                        "profile_picture = ?, " +
-                        "first_name = ?, " +
-                        "last_name = ?, " +
-                        "email = ?, " +
-                        "password_hash = ?, " +
-                        "phone = ?, " +
-                        "birth_date = ?, " +
-                        "register_date = ?, " +
-                        "last_login = ?, " +
-                        "state = ? " +
-                        "WHERE id = ?";
+        // realizar la actualización de la tabla en user y el valor asociado a su role
+        String query = "UPDATE users " +
+                "INNER JOIN user_roles ON users.id = user_roles.user_id " +
+                "SET " +
+                "  users.profile_picture = ?, " +
+                "  users.first_name = ?, " +
+                "  users.last_name = ?, " +
+                "  users.email = ?, " +
+                "  users.password_hash = ?, " +
+                "  users.phone = ?, " +
+                "  users.birth_date = ?, " +
+                "  users.register_date = ?, " +
+                "  users.last_login = ?, " +
+                "  users.state = ?, " +
+                "  user_roles.role_id = ? " +
+                "WHERE users.id = ?;";
 
         try (Connection conn = getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -150,8 +150,9 @@ public class UserRepo implements UserDao {
             pstmt.setObject(7, entity.getBirthDate(), Types.VARCHAR);
             pstmt.setObject(8, entity.getRegisterDate(), Types.VARCHAR);
             pstmt.setObject(9, entity.getLastLogin(), Types.VARCHAR);
-            pstmt.setBoolean(10, true);
-            pstmt.setInt(11, entity.getId());
+            pstmt.setBoolean(10, entity.getState());
+            pstmt.setInt(11, entity.getRole().getId());
+            pstmt.setInt(12, entity.getId());
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,8 +163,23 @@ public class UserRepo implements UserDao {
     }
 
     @Override
-    public Boolean delete(Integer integer) throws SQLException {
-        return false;
+    public Boolean delete(Integer id) throws SQLException {
+        boolean result = false;
+        String query = "DELETE FROM users WHERE id = ?";
+
+        try (Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+
+            if (pstmt.executeUpdate() > 0) {
+                result = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override

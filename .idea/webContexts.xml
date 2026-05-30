@@ -10,11 +10,13 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/login-form.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/molecules/account-information.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes/molecules" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/molecules/account-settings.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes/molecules" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/molecules/edit-user.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes/molecules" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/molecules/login-form.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes/molecules" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/molecules/navigation-profile.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes/molecules" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/molecules/register-form.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes/molecules" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/molecules/users-information.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes/molecules" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/organisms/header-main.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes/organisms" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/includes/organisms/profile-main.jsp" value="file://$PROJECT_DIR$/src/main/webapp/includes/organisms" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/auth/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/auth" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/auth/register.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/auth" />

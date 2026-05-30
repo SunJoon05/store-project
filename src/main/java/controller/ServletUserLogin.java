@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/login")
-public class LoginController extends HttpServlet{
+public class ServletUserLogin extends HttpServlet{
 
     private AuthenticationService authentication_service;
     private PermissionService permissions_service;
@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet{
         HttpSession session = req.getSession(false);
 
         if (session != null && session.getAttribute("user") != null) {
-            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.check"));
             return;
         }
 
@@ -60,6 +60,11 @@ public class LoginController extends HttpServlet{
                 return;
             }
 
+            if (found.getState() == false) {
+                sendError(req, resp, "User isn't active.");
+                return;
+            }
+
             req.setAttribute("resp", "success");
             req.getSession(false);
             HttpSession session = req.getSession(true);
@@ -70,7 +75,8 @@ public class LoginController extends HttpServlet{
             session.setAttribute("permissions", permissions);
             session.setAttribute("user", found);
 
-            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.check"));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

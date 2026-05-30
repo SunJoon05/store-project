@@ -15,7 +15,7 @@ import java.sql.SQLException;
 // lanzar la respuesta adecuada en el setAtributte
 
 @WebServlet("/register")
-public class RegisterController extends HttpServlet {
+public class ServletUserRegister extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher(ApplicationConfiguration.getPath("dir.views", "dir.auth", "view.register")).forward(req,resp);

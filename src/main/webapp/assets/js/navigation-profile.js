@@ -10,6 +10,10 @@ const NavigationProfile = (() => {
     }
 
     const show_section = (target, navigation_sections) => {
+        navigation_sections.forEach(section => {
+            console.log("Section -> " + section.dataset?.sectionId)
+        });
+
         navigation_sections.forEach((section) => {
             const section_id = section.dataset?.sectionId;
 

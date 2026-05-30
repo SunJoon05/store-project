@@ -5,7 +5,7 @@
   Time: 1:03 p. m.
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <section class="user__profile-section --hidden" data-section-id="details">
     <div class="user-details">
         <div class="user__details-header">

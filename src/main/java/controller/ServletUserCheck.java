@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 @WebServlet("/profile-check")
-public class ProfileCheck extends HttpServlet {
+public class ServletUserCheck extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);

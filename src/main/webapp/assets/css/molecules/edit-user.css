@@ -1,0 +1,51 @@
+.edit-user {
+    box-shadow: 0 0 5px 0 rgba(117, 117, 117, 0.2);
+    border-radius: .5rem;
+    background-color: var(--color-bg-primary);
+    overflow: hidden;
+}
+
+.account-settings__toggle {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    cursor: pointer;
+}
+
+.account-settings__toggle input[type="checkbox"] {
+    display: none; /* ocultamos el checkbox nativo */
+}
+
+/* La pista del toggle */
+.account-settings__toggle-slider {
+    position: relative;
+    width: 2.5rem;
+    height: 1.4rem;
+    background-color: #ccc;
+    border-radius: 999px;
+    transition: background-color .2s ease;
+    flex-shrink: 0;
+}
+
+/* El círculo deslizante */
+.account-settings__toggle-slider::after {
+    content: '';
+    position: absolute;
+    top: .2rem;
+    left: .2rem;
+    width: 1rem;
+    height: 1rem;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform .2s ease;
+}
+
+/* Cuando está marcado — pista verde y círculo a la derecha */
+.account-settings__toggle input:checked ~ .account-settings__toggle-slider {
+    background-color: var(--color-bg-secondary);
+}
+
+.account-settings__toggle input:checked ~ .account-settings__toggle-slider::after {
+    transform: translateX(1.1rem);
+}
+

@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 @WebServlet("/update-user-data")
 @MultipartConfig
-public class UpdateUserData extends HttpServlet {
+public class ServletUpdateUser extends HttpServlet {
     private UserService user_service;
 
     @Override
@@ -48,9 +48,9 @@ public class UpdateUserData extends HttpServlet {
 
         if (success) {
             req.getSession().setAttribute("user", entity);
-            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.check"));
         } else {
-            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.login"));
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.login"));
         }
     }
 }

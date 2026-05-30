@@ -16,7 +16,7 @@
 
     int size = 10;
     int offset = (current_page - 1) * size;
-    Pagination users_pagination = user_service.UsersPagination(offset);
+    Pagination users_pagination = user_service.usersPagination(offset);
 %>
 <section class="user__profile-section --hidden" data-section-id="management">
     <div class="users-management">
@@ -55,7 +55,7 @@
 
             <%for (int i = 0; i < users_pagination.content.size(); i++) {%>
                 <% Object u = users_pagination.content.get(i);%>
-                <%= HtmlBuilder.renderUserRow((User) u, offset + i + 1, ApplicationConfiguration.getPath("app.root", "servlet.details")) %>
+                <%= HtmlBuilder.renderUserRow((User) u, offset + i + 1) %>
             <%} %>
         </table>
 

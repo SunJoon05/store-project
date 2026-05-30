@@ -38,6 +38,7 @@ public class UserService {
             }
         }
 
+        System.out.println(file_name);
         return file_name;
     }
 
@@ -45,6 +46,8 @@ public class UserService {
         HashMap<String, Object> report = new HashMap<>();
         report.put("success", false);
         report.put("entity", null);
+
+        System.out.println(file);
 
         try {
             latest.setProfilePicture(this.saveProfilePicture(file, id));
@@ -76,7 +79,37 @@ public class UserService {
         return report;
     }
 
-    public Pagination UsersPagination(int offset) {
+    public HashMap<String, Object> processUserUpdate(User latest, Integer id) throws SQLException {
+
+        HashMap<String, Object> report = new HashMap<>();
+        report.put("success", false);
+        report.put("entity", null);
+
+        User oldest = this.DAO.findByProperty("id", id);
+
+        if (oldest == null) return report;
+
+        for (Field field: oldest.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                Object new_value = field.get(latest);
+                if (new_value != null) {
+                    field.set(oldest, new_value);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (this.DAO.update(oldest)) {
+            report.put("success", true);
+            report.put("entity", oldest);
+        }
+
+        return report;
+    }
+
+    public Pagination usersPagination(int offset) {
 
         Pagination users_pagination = null;
 
@@ -102,5 +135,9 @@ public class UserService {
         }
 
         return find;
+    }
+
+    public Boolean deleteUserById(Integer user_id) throws SQLException {
+        return this.DAO.delete(user_id);
     }
 }
