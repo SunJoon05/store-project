@@ -46,11 +46,11 @@ public class AuthenticationService {
      * function => se encarga de hashear la contraseña antes de guardarla
      * en la base de datos con la dependencia {@link BCrypt}
      * */
-    private String hashPassword(String password) {
+    public static String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
 
-    private String getLocalDateTime() {
+    public static String getLocalDateTime() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 

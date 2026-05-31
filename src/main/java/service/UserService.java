@@ -140,4 +140,16 @@ public class UserService {
     public Boolean deleteUserById(Integer user_id) throws SQLException {
         return this.DAO.delete(user_id);
     }
+
+    public boolean createUser(User entity) throws SQLException {
+        boolean result = false;
+
+        try {
+            result = this.DAO.insert(entity);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return result;
+    }
 }
