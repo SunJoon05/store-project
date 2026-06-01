@@ -1,5 +1,6 @@
 package controller;
 
+import config.ApplicationConfiguration;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -46,23 +47,14 @@ public class ServletCreateUser extends HttpServlet {
         new_user.setFirstName(first_name);
         new_user.setLastName(last_name);
         new_user.setEmail(email);
-        new_user.setPasswordHash(AuthenticationService.hashPassword(password));
-        new_user.setRegisterDate(AuthenticationService.getLocalDateTime());
+        new_user.setPasswordHash(password);
         new_user.setPhone(phone_number);
         new_user.setBirthDate(birth_date);
         new_user.setRole(role);
         new_user.setState(state);
-        // revisar -> new_user.setProfilePicture();
+        new_user.setProfilePicture(null);
 
-        try {
-            if (this.user_service.createUser(new_user)) {
-                System.out.println("Usuario creado con exito");
-            } else {
-                System.out.println("No se pueod crear el nuevo usuario");
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        // redireccionar a la tabla de usuarios
+        resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.check") + "?section=management");
     }
 }

@@ -1,5 +1,6 @@
 package service;
 
+import model.entities.Role;
 import model.entities.User;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.UserRepo;
@@ -61,6 +62,7 @@ public class AuthenticationService {
      * */
     public Boolean registerUser(String email, String password) throws SQLException {
         User user = new User();
+        user.setRole(Role.CLIENT.getId());
         user.setProfilePicture(null);
         user.setEmail(email);
         user.setPasswordHash(hashPassword(password));

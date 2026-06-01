@@ -1,6 +1,7 @@
 package service;
 
 import jakarta.servlet.http.Part;
+import model.entities.Role;
 import model.entities.User;
 import repository.UserRepo;
 import util.Pagination;
@@ -143,6 +144,15 @@ public class UserService {
 
     public boolean createUser(User entity) throws SQLException {
         boolean result = false;
+
+        // crear fecha de registro, encriptar contraseña y asignar role por defecto
+
+        Integer role_id = entity.getRole().getId();
+        int role_to_assign = role_id != null ? Role.fromId(role_id).getId() : Role.CLIENT.getId();
+
+        entity.setRole(role_to_assign);
+        entity.setPasswordHash(AuthenticationService.hashPassword(entity.getPasswordHash()));
+        entity.setRegisterDate(AuthenticationService.getLocalDateTime());
 
         try {
             result = this.DAO.insert(entity);

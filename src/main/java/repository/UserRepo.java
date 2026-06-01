@@ -84,33 +84,77 @@ public class UserRepo implements UserDao {
     @Override
     public Boolean insert(User entity) throws SQLException {
 
+        boolean result = false;
+
         if (findByProperty("email", entity.getEmail()) != null) {
             return false;
         }
 
-        String query = "INSERT INTO "+ TABLE +" (first_name, last_name, email, password_hash, phone, birth_date, register_date, last_login, state) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        Boolean is_success = false;
+        String u_query = "INSERT INTO users (profile_picture, first_name, last_name, email, password_hash, phone, birth_date, register_date, last_login, state) VALUES (?, ?, ?, ?, ?,? ,? ,? ,? ,?)";
+        String ur_query = "INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)";
 
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);) {
-            pstmt.setString(1, entity.getFirstName());
-            pstmt.setString(2, entity.getLastName());
-            pstmt.setString(3, entity.getEmail());
-            pstmt.setString(4, entity.getPasswordHash());
-            pstmt.setString(5, entity.getPhone());
-            pstmt.setString(6, entity.getBirthDate());
-            pstmt.setString(7, entity.getRegisterDate());
-            pstmt.setString(8, entity.getLastLogin());
-            pstmt.setBoolean(9,entity.getState());
+        Connection conn = null;
 
-            if (pstmt.executeUpdate() > 0) {
-                is_success = true;
+        try {
+            conn = getConnection();
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement u_pstmt = conn.prepareStatement(u_query, Statement.RETURN_GENERATED_KEYS)) {
+                u_pstmt.setString(1, entity.getProfilePicture());
+                u_pstmt.setString(2, entity.getFirstName());
+                u_pstmt.setString(3, entity.getLastName());
+                u_pstmt.setString(4, entity.getEmail());
+                u_pstmt.setString(5, entity.getPasswordHash());
+                u_pstmt.setString(6, entity.getPhone());
+                u_pstmt.setString(7, entity.getBirthDate());
+                u_pstmt.setString(8, entity.getRegisterDate());
+                u_pstmt.setString(9, entity.getLastLogin());
+                u_pstmt.setBoolean(10,entity.getState());
+
+                int users_affected = u_pstmt.executeUpdate();
+
+                // verificar la insercion del usuario en la tabla users
+                if (users_affected > 0) {
+                    // traer y asignar el id generado cuando se inserta el usuario
+                    Integer user_generated_id = null;
+
+                    try (ResultSet rs = u_pstmt.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            user_generated_id = rs.getInt(1);
+                        }
+                    }
+
+                    // hacer la segunda consulta para crear la relación entre usuario id y role asignado en la tabla auxiliar
+                    try (PreparedStatement ur_pstmt = conn.prepareStatement(ur_query)) {
+                        ur_pstmt.setInt(1, user_generated_id);
+                        ur_pstmt.setInt(2, entity.getRole().getId())  ;
+
+                        int user_roles_affected = ur_pstmt.executeUpdate();
+
+                        // se verifica la inserción en ambas tablas principal y auxiliar
+                        if (user_roles_affected > 0) {
+                            result = true;
+                            conn.commit();
+                        }
+                    }
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            if (!result) {
+                conn.rollback();
+            }
+
+        } catch (Exception ex) {
+            if (conn != null) {
+                conn.rollback();
+            }
+        } finally {
+             if (conn != null) {
+                 conn.close();
+             }
         }
 
-        return is_success;
+        return result;
     }
 
     @Override
