@@ -48,7 +48,7 @@ public class ServletUpdateUser extends HttpServlet {
 
         if (success) {
             req.getSession().setAttribute("user", entity);
-            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.check"));
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
         } else {
             resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.login"));
         }

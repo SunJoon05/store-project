@@ -55,6 +55,6 @@ public class ServletCreateUser extends HttpServlet {
         new_user.setProfilePicture(null);
 
         // redireccionar a la tabla de usuarios
-        resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.check") + "?section=management");
+        resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check") + "?section=management");
     }
 }

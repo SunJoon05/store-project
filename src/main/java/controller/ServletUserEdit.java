@@ -89,7 +89,7 @@ public class ServletUserEdit extends HttpServlet {
         }
 
         if (success) {
-            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.check") + "?section=management");
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check") + "?section=management");
         }
     }
 }
