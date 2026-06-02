@@ -10,6 +10,8 @@
             <%@ include file="../molecules/user-details.jsp"%>
             <%@ include file="../molecules/edit-user.jsp"%>
             <%@ include file="../molecules/create-user.jsp"%>
+
+            <%@ include file="../molecules/create-product.jsp"%>
         </div>
     </div>
 </section>

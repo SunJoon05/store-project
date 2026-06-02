@@ -5,7 +5,6 @@ import model.entities.Permission;
 import repository.PermissionRepo;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PermissionService {
@@ -16,16 +15,8 @@ public class PermissionService {
         this.DAO = DAO;
     }
 
-    public List<Permission> userPermissionsById(int role_id) {
-        List<Permission> permissions = new ArrayList<>();
-
-        try {
-            permissions = this.DAO.findPermissionsById(role_id);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return permissions;
+    public List<Permission> userPermissionsById(int role_id) throws SQLException, ClassNotFoundException {
+        return this.DAO.findPermissionsById(role_id);
     }
 
     public static boolean can(HttpSession session, Permission permission) {

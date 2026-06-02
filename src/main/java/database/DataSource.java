@@ -20,11 +20,7 @@ public class DataSource {
     private DataSource(){}
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
-        if (connection == null || connection.isClosed()) {
-            Class.forName(DRIVER);
-            connection = DriverManager.getConnection(URL, USER, PASS);
-        }
-
-        return connection;
+        Class.forName(DRIVER);
+        return DriverManager.getConnection(URL, USER, PASS);
     }
 }

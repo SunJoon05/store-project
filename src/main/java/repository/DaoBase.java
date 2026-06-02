@@ -11,8 +11,8 @@ if you need a more specific methods, you can create those methods in other scope
 for example you want the findByID method, you implement generic interface and create a SpecificDao with that method :D
  */
 public interface DaoBase<T, ID>{
-    List<T> findAll() throws SQLException;
-    Boolean insert(T entity) throws SQLException;
-    Boolean update(T entity) throws SQLException;
-    Boolean delete(ID id) throws SQLException;
+    List<T> findAll() throws SQLException, ClassNotFoundException;
+    Boolean insert(T entity) throws SQLException, ClassNotFoundException;
+    Boolean update(T entity) throws SQLException, ClassNotFoundException;
+    Boolean delete(ID id) throws SQLException, ClassNotFoundException;
 }
