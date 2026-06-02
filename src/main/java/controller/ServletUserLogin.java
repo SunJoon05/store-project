@@ -4,15 +4,18 @@ import config.ApplicationConfiguration;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import model.entities.Market;
 import model.entities.Permission;
+import model.entities.Role;
 import model.entities.User;
+import repository.MarketRepo;
 import repository.PermissionRepo;
 import repository.UserRepo;
 import service.AuthenticationService;
+import service.MarketService;
 import service.PermissionService;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/login")
@@ -20,11 +23,14 @@ public class ServletUserLogin extends HttpServlet{
 
     private AuthenticationService authentication_service;
     private PermissionService permissions_service;
+    private MarketService market_service;
 
     @Override
     public void init() {
         UserRepo USER_DAO = new UserRepo();
         PermissionRepo PERMISSIONS_DAO = new PermissionRepo();
+        MarketRepo MARKETS_DAO = new MarketRepo();
+        this.market_service = new MarketService(MARKETS_DAO);
         this.authentication_service = new AuthenticationService(USER_DAO);
         this.permissions_service = new PermissionService(PERMISSIONS_DAO);
     }
@@ -34,7 +40,7 @@ public class ServletUserLogin extends HttpServlet{
         HttpSession session = req.getSession(false);
 
         if (session != null && session.getAttribute("user") != null) {
-            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.check"));
             return;
         }
 
@@ -54,14 +60,10 @@ public class ServletUserLogin extends HttpServlet{
 
         try {
             User found = this.authentication_service.authenticationUser(email, password);
+            Market market;
 
-            if (found == null) {
+            if (found == null || found.getState() == false) {
                 sendError(req, resp, "Invalid username or password.");
-                return;
-            }
-
-            if (found.getState() == false) {
-                sendError(req, resp, "User isn't active.");
                 return;
             }
 
@@ -75,9 +77,15 @@ public class ServletUserLogin extends HttpServlet{
             session.setAttribute("permissions", permissions);
             session.setAttribute("user", found);
 
-            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.check"));
+            if (found.getRole() == Role.SUPERVISOR) {
+                // lógica para obtener el mercado asociado
+                market = this.market_service.getMarketBySupervisorId(found.getId());
+                session.setAttribute("market", market);
+            }
 
-        } catch (SQLException e) {
+            resp.sendRedirect(ApplicationConfiguration.getPath("app.root", "servlet.user.check"));
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

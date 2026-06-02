@@ -15,22 +15,21 @@ public class PermissionRepo implements PermissionsDao {
 
     // devolver los permisos de la base de datos de todos los usuarios
     @Override
-    public List<Permission> findPermissionsById(int role_id) throws SQLException {
+    public List<Permission> findPermissionsById(int role_id) throws SQLException, ClassNotFoundException {
         String query = "SELECT id, name, resource, action FROM permissions p INNER JOIN role_permissions rp ON p.id = rp.permission_id WHERE rp.role_id = ?";
         List<Permission> permissions = new ArrayList<>();
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
+
             pstmt.setInt(1, role_id);
-            ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                Permission permission = normalizePermission(rs);
-                permissions.add(permission);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Permission permission = normalizePermission(rs);
+                    permissions.add(permission);
+                }
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
         return permissions;
